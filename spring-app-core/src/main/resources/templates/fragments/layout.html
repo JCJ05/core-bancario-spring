@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html th:fragment="layout (template, menu)">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+<link th:href="@{/assets/dist/css/bootstrap.min.css}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    
+    <link th:href="@{/css/carousel.css}" rel="stylesheet">
+    <link th:href="@{/css/headers.css}" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+          <a  href="/" style="color: purple; font-size: 30px" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none">
+             Fuxia<strong>Bank</strong>
+          </a>
+    
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" class="nav-link px-2" style="color: purple;"><strong>Inicio</strong></a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Nosotros</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Prestamos</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Abre tu cuenta de ahorro</a></li>
+          </ul>
+    
+          <div class="col-md-3 text-end">
+            <button type="button" class="btn me-2" style="border-color: purple;">Inciar Sesion</button>
+            <button type="button" class="btn" style="background-color: purple; color: white;">Registrarse</button>
+          </div>
+        </header>
+      </div>
+
+      <th:block th:include="${template}" />
+
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li><a href="#" class="nav-link px-2" style="color: purple;"><strong>Inicio</strong></a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">Nosotros</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">Prestamos</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">Abre tu cuenta de ahorro</a></li>
+        </ul>
+        <p class="text-center" style="color: purple; font-size: 20px;">&copy; Fuxia<strong>Bank</strong> 2022</p>
+      </footer>
+    </div>
+   
+      <script th:src="@{/assets/dist/js/bootstrap.bundle.min.js}"></script>
+    
+</body>
+</html>
