@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'login')}">
+   
+    <body>
+        <div>
+    
+            <div class="container_login">
+                <h2>Iniciar Sesion</h2>
+                
+                <form class="forma_login">
+                    <input class='input correo'type="text" placeholder="Correo:">
+                    <input class='input contraseña'type="password" placeholder="Contraseña:">
+                    <input class='botonL'type="submit" value="Logearse"> 
+                    <p>¿Aun no tienes una cuenta? <a href="/register/register">Registrarse</a></p>
+                </form>
+            </div>
+    
+        </div>
+    </body>
+</html>

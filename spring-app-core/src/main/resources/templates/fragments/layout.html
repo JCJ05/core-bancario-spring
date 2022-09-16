@@ -29,6 +29,8 @@
     
     <link th:href="@{/css/carousel.css}" rel="stylesheet">
     <link th:href="@{/css/headers.css}" rel="stylesheet">
+    <link th:href="@{/css/stylesRegister.css}" rel="stylesheet">
+    <link th:href="@{/css/stylesLogin.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -46,8 +48,8 @@
           </ul>
     
           <div class="col-md-3 text-end">
-            <button type="button" class="btn me-2" style="border-color: purple;">Inciar Sesion</button>
-            <button type="button" class="btn" style="background-color: purple; color: white;">Registrarse</button>
+            <button type="button" class="btn me-2" style="border-color: purple;"><a href="/usuario/login">Iniciar Sesion</a></button>
+            <button type="button" class="btn" style="background-color: purple; color: white;"><a href="/register/register">Registrarse</a></button>
           </div>
         </header>
       </div>
@@ -67,6 +69,5 @@
     </div>
    
       <script th:src="@{/assets/dist/js/bootstrap.bundle.min.js}"></script>
-    
 </body>
 </html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'register')}">
+   
+    <body>
+        <div>
+    
+            <div class="container_register">
+                <h2>Registro de Usuario</h2>
+                
+                <form class="forma_register">
+                    <input class='input Dni'type="text" placeholder="Dni">
+                    <input class='input nombre'type="text" placeholder="Nombre:">
+                    <input class='input apePat'type="text" placeholder="A.Paterno:">
+                    <input class='input apeMat'type="text" placeholder="A.Materno:">
+                    <input class='input celular'type="text" placeholder="Celular:">
+                    <input class='input correo'type="text" placeholder="Correo:">
+                    <input class='input contraseña'type="password" placeholder="Contraseña:">
+                    <input class='boton'type="submit" value="registrarse">
+                </form>
+            </div>
+    
+        </div>
+    </body>
+</html>

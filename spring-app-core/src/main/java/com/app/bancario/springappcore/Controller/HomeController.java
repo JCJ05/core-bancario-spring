@@ -12,5 +12,17 @@ public class HomeController {
         return "index";
 
     } 
+    @GetMapping(path = {"/register/register"})
+    public String register(){
+    
+        return "register/register";
+
+    } 
+    @GetMapping(path = {"/usuario/login"})
+    public String login(){
+    
+        return "usuario/login";
+
+    } 
 
 }

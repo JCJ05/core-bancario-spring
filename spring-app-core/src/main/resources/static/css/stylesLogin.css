@@ -1,0 +1,64 @@
+
+.container_login{
+    position: relative;
+    width:500px;
+    height: 330px;
+    background-color:#fff;
+    left:calc(50% - 260px);
+    top:calc(50% - 250px);
+    border: 1px solid rgba(63, 63, 63, 0.151);
+    box-shadow:0px 0px 6px .2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding:35px;
+}
+.container_login h2{
+    font-size:25px;
+    margin-bottom:25px;
+    text-align: center;
+    color:purple;
+}
+
+.forma_login input{
+    outline: none;
+    border:none;
+    border-bottom: 1px solid rgba(53, 52, 52, 0.405);
+    width: 100%;
+    box-sizing: border-box;
+    padding:5px 3px;
+    margin-bottom:20px;
+    z-index:4;
+}
+.forma_login input::placeholder{
+    color: purple;
+    transition:all .3s;
+    
+}
+.forma_login input[type=submit]{
+    background-color: rgba(113, 2, 98, 0.712);
+    color:#fff;
+    border-radius: 8px;
+   padding:10px;
+   cursor:pointer;
+   transition:all .3s;
+}
+
+.forma_login input[type=submit]:hover{
+    background-color: rgba(120, 1, 104, 0.912);
+}
+.fondo_login .cambiar::placeholder{
+    transform: translateY(-11px) translatex(2px);
+    font-size: 9px;
+    color:rgba(0, 55, 255, 0.712);
+    font-weight: 500;
+   
+}
+.forma_login a{
+    cursor: pointer;
+    transition:all .2s;
+}
+.forma_login a:hover{
+    font-weight: bold;
+}
+.forma_login a, .forma_login p  {
+    color:purple;
+}
