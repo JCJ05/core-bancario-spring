@@ -11,7 +11,7 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-           <img src="https://www.bancow.com.co/wp-content/uploads/2017/06/23-ago-.png" alt="">
+           <img th:src="@{/img/carrusel-1.png}" alt="">
     
             <div class="container">
               <div class="carousel-caption">
@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="carousel-item">
-            <img src="https://1.bp.blogspot.com/-JCphvo3yFDQ/WcsxAtLmCRI/AAAAAAAAADI/t5ZPMh5UOrQvLtfTZNP9dSIeIoJMmcrnwCLcBGAs/s1600/Prestamo.jpg" alt="">
+            <img th:src="@{/img/carrusel-2.jpg}" alt="">
     
             <div class="container">
               <div class="carousel-caption">
@@ -32,7 +32,7 @@
             </div>
           </div>
           <div class="carousel-item">
-           <img src="https://polemos.pe/wp-content/uploads/2020/10/preferentes.jpg" alt="">
+           <img th:src="@{/img/carrusel-3.jpg}" alt="">
     
             <div class="container">
               <div class="carousel-caption text-end">
@@ -56,21 +56,21 @@
     <div class="container marketing">
       <div class="row">
         <div class="col-lg-4">
-          <img src="https://www.bbva.pe/content/dam/public-web/peru/ab-test/Prestamo.png" alt="">
+          <img th:src="@{/img/Prestamo.png}" alt="">
   
           <h2>Necesito un prestamo</h2>
           <p>Solicita un prestamo con nosotros, te daremos una tasa minima de interes y pago de 3 cuotas sin intereses </p>
-          <p><a class="btn" style="background-color: purple; color: white;" href="#">Ver Detalles &raquo;</a></p>
+          <p><a class="btn" style="background-color: purple; color: white;" th:href="@{/prestamo/}">Ver Detalles &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img src="https://www.bbva.pe/content/dam/public-web/peru/ab-test/Abre-Cuenta.png" alt="">
+          <img th:src="@{/img/Abre-cuenta.png}" alt="">
   
           <h2>Obten una cuenta de ahorros</h2>
           <p>Necesitas un lugar seguro para tu dinero? , ven y abre una cuenta de ahorro con nosotros y te ofrecemos un viaje al mundial de Qatar 2022</p>
           <p><a class="btn" style="background-color: purple; color: white;" href="#">Ver Detalles &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-         <img src="https://www.bbva.pe/content/dam/public-web/peru/ab-test/Adelanto_sueldo.png" alt="">
+         <img th:src="@{/img/Adelanto_sueldo.png}" alt="">
   
           <h2>Paga tus deudas</h2>
           <p>Necesitas cancelar tus deudas de prestamos anteriores? ven y paga con nostros gracias a nuestra pasarela de pago.</p>
@@ -86,7 +86,7 @@
         <p class="lead">Y se uno de los 50 ganadores de S./500 soles .</p>
       </div>
       <div class="col-md-5">
-        <img src="https://image.shutterstock.com/image-vector/money-bag-flat-illustration-dollars-260nw-1927192892.jpg" width="300" height="300" alt="">
+        <img th:src="@{/img/money.webp}" width="300" height="300" alt="">
 
       </div>
     </div>
@@ -99,7 +99,7 @@
         <p class="lead">Manten tu plata de manera segura y ademas participa del sorte por S./5.000 soles</p>
       </div>
       <div class="col-md-5 order-md-1">
-        <img src="https://media.revistagq.com/photos/60dae97754e0443ce59c74bb/4:3/w_2664,h_1998,c_limit/AHORRAR.jpg" width="300" height="300" alt="">
+        <img th:src="@{/img/AHORRAR.webp}" width="300" height="300" alt="">
 
       </div>
     </div>
@@ -112,7 +112,7 @@
         <p class="lead">Y accede a muchos beneficios y premios cada mes.</p>
       </div>
       <div class="col-md-5">
-        <img src="https://corpocres.edu.co/inicio/wp-content/uploads/2019/02/REGISTRATE-AQUI-BOTON-01-01-1.png" width="400" height="300" alt="">
+       <a th:href="@{/register/register}"><img th:src="@{/img/REGISTRATE.png}" width="400" height="300" alt=""></a>
 
       </div>
     </div>
