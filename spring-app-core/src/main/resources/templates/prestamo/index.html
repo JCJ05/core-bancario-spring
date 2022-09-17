@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'prestamo')}">
+   
+    <body>
+        
+        <div class="container">
+            <p>Bienvenido!!! A continuación, puede solicitar un nuevo préstamo o pagar las cuotas que tiene pendientes.</p>
+
+            <a href="/prestamo/solicitar" class="btn" style="background-color: purple; color: white;">Solicitar un nuevo préstamo</a>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Fecha de solicitud</th>
+                        <th>Monto total</th>
+                        <th>Próxima fecha de pago</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+                    <tr th:each="prestamo: ${listaPrestamos}">
+                        <td th:text="${prestamo.id}"></td>
+                        <td th:text="${prestamo.fecha}"></td>
+                        <td th:text="${prestamo.montoTotal}"></td>
+                        <td th:text="${prestamo.proximaFecha}"></td>
+                        <td>
+                            <a th:href="@{/__${prestamo.id}__}" class="btn" style="background-color: purple; color: white;">Ver cuotas</a>
+                        </td>
+                    </tr>
+                
+                </tbody>
+            </table>
+
+        </div>
+
+    </body>
+</html>
