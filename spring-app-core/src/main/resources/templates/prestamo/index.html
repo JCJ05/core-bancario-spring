@@ -8,7 +8,7 @@
 
             <a href="/prestamo/solicitar" class="btn" style="background-color: purple; color: white;">Solicitar un nuevo préstamo</a>
 
-            <table class="table">
+            <table th:if="${listaPrestamos != null}" class="table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -32,6 +32,13 @@
                 
                 </tbody>
             </table>
+
+
+            <div class="alert alert-danger text-center mt-3" style="font-size: 18px;">
+              
+                Lo siento pero no existe ninguna prestamo pendiente
+
+            </div>
 
         </div>
 
