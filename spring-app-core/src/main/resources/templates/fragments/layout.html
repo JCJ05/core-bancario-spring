@@ -36,7 +36,7 @@
 
     <div class="container">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-          <a  href="/" style="color: purple; font-size: 30px" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none">
+          <a  th:href="@{/}" style="color: purple; font-size: 30px" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none">
              Fuxia<strong>Bank</strong>
           </a>
     
@@ -48,8 +48,8 @@
           </ul>
     
           <div class="col-md-3 text-end">
-            <button type="button" class="btn me-2" style="border-color: purple;"><a href="/usuario/login">Iniciar Sesion</a></button>
-            <button type="button" class="btn" style="background-color: purple; color: white;"><a href="/register/register">Registrarse</a></button>
+            <button type="button" class="btn me-2" style="border-color: purple;"><a style="text-decoration: none; color: black;" th:href="@{/usuario/login}">Iniciar Sesion</a></button>
+            <button type="button" class="btn" style="background-color: purple; color: white;"><a style="text-decoration: none; color: white;" th:href="@{/register/register}">Registrarse</a></button>
           </div>
         </header>
       </div>
