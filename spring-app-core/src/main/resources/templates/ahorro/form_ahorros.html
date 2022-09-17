@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'ahorro')}">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;1,600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container_ahorro">
+        <form class="form_ahorro">
+
+            <h2 class="titulo">Plan de ahorros</h2>
+
+
+            <div class="form_contenedor">
+
+                    <select class="round">
+                        <option disabled selected>Moneda</option>
+                        <option value="PEN">Soles</option>
+                        <option value="USD">Dolares</option>
+                    </select>
+
+                    <input class="main_input" type="text" placeholder="DNI">
+                
+                    <input class="main_input" type="number" placeholder="Cuota mensual" step="0.01">
+
+                    <input class="main_input main_input_E" type="submit" value="Enviar">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
