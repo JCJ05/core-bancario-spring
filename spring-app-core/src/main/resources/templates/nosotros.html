@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'nosotros')}">
+<body>
+
+    <div class="container py-4">
+        <div class="p-5 mb-4 bg-light rounded-3">
+          <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Quienes somos?</h1>
+            <p class="col-md-8 fs-4">Somos el banco mas accesible para todos los minoristas ofrecemos prestamos con la tasa mas baja del mercado para que puedas aprovechar el dinero en tu negocio o en tu familia, porque lo mas importante eres tu asi que ven y se parte de nuestra familia</p>
+            <a class="btn btn-primary btn-lg" style="background-color: purple;" th:href="@{/register/register}">Registrarse</a>
+          </div>
+        </div>
+    
+        <div class="row align-items-md-stretch">
+          <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+              <h2>Obten tu prestamo en pocos segudos</h2>
+              <p>Cansado de hacer fila horas y horas para solicitar un prestamo y pasarte todo el dia en papeleos? Ven y solicita un prestamo con nostros y te avisaremos si esta aprobado o no en un plazo de 24 horas</p>
+              <a class="btn btn-outline-light" style="background-color: purple;" th:href="@{/prestamo/}">Quiero un prestamo</a>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="h-100 p-5 bg-light border rounded-3">
+              <h2>Todavia sigues guardando tu dinero debajo de tu colchon?</h2>
+              <p>Ya no tiene porque seguir siendo asi ven y abre una cuenta de ahorro con nosotros y manten tu dinero seguro y a salvo de cualquier robo, ademas de participar en grandes sorteos cada mes</p>
+              <a class="btn btn-outline-secondary" href="#">Quiero abrir mi cuenta</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+</body>
+</html>
