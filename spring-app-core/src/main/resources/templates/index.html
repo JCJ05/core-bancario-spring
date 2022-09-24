@@ -7,6 +7,8 @@
         <span>Tipo de cambio actual</span>
         <br>
         <span th:text="'Compra: S/. ' + ${compra} + ' - Venta: S/. ' + ${venta}"></span>
+        <br>
+        <span class="small" th:text="'Última actualización: ' + ${#dates.format(fechaHora, 'dd/MM/yyyy HH:mm:ss')}"></span>
     </div>
 
     <br>

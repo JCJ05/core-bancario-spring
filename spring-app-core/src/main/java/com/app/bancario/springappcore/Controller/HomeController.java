@@ -21,6 +21,7 @@ public class HomeController {
 
         model.addAttribute("compra", tcActual.getCompra());
         model.addAttribute("venta", tcActual.getVenta());
+        model.addAttribute("fechaHora", tcActual.getFechaHora());
 
         return "index";
 
