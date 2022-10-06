@@ -21,9 +21,10 @@ public class ExchangeRatesApi {
         ResponseEntity<ExchangeRatesResponse> respuesta = null;
 
         try {
-
+            
+            String apiJket = System.getenv("API_KEY_CAMBIO");
             HttpHeaders headers = new HttpHeaders();
-            headers.add("apikey", "API_KEY");
+            headers.add("apikey", apiJket);
             HttpEntity<Object> httpEntity=new HttpEntity<Object>(headers);
 
             respuesta = restTemplate.exchange("https://api.apilayer.com/exchangerates_data/latest?symbols=PEN&base=USD", HttpMethod.GET, httpEntity, ExchangeRatesResponse.class);

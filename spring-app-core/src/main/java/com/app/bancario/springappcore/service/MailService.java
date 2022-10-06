@@ -53,9 +53,8 @@ public class MailService {
         Content content = new Content("text/html", contenido);
         Mail mail = new Mail(from, subject, to, content);
 
-        String key = "SENGRID_KEY";
     
-        SendGrid sg = new SendGrid(key);
+        SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
         Request request = new Request();
         int statusCode = 0;
 
