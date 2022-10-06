@@ -48,8 +48,12 @@
           </ul>
     
           <div class="col-md-3 text-end">
-            <a  class="btn me-2" style="border-color: purple;" th:href="@{/usuario/login}">Iniciar Sesion</a>
-            <a  class="btn" style="background-color: purple; color: white;" th:href="@{/register/register}">Registrarse</a>
+            <a sec:authorize="!isAuthenticated()" class="btn me-2" style="border-color: purple;" th:href="@{/usuario/login}">Iniciar Sesion</a>
+            <a sec:authorize="!isAuthenticated()" class="btn" style="background-color: purple; color: white;" th:href="@{/register/register}">Registrarse</a>
+            <a sec:authorize="isAuthenticated()" sec:authentication="name" class="btn mb-3" style="border-color: purple;" href="#"></a>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                <button type="submit" class="btn" style="background-color: purple; color: white;">Cerrar sesion</button>
+            </form>
           </div>
         </header>
       </div>

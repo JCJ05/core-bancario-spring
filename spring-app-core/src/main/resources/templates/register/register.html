@@ -5,16 +5,16 @@
         <div>
     
             <div class="container_register">
-                <h2>Registro de Usuario</h2>
+                <h2 th:text="${titulo}"></h2>
                 
-                <form class="forma_register">
-                    <input class='input Dni'type="text" placeholder="Dni">
-                    <input class='input nombre'type="text" placeholder="Nombre:">
-                    <input class='input apePat'type="text" placeholder="A.Paterno:">
-                    <input class='input apeMat'type="text" placeholder="A.Materno:">
-                    <input class='input celular'type="text" placeholder="Celular:">
-                    <input class='input correo'type="text" placeholder="Correo:">
-                    <input class='input contraseña'type="password" placeholder="Contraseña:">
+                <form th:action="@{/register/guardar}" th:object="${usuario}" method="post" class="forma_register">
+                    <input th:field="*{dni}" class='input Dni'type="text" placeholder="Dni">
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></small>
+                    <input name="celular" class='input celular'type="text" placeholder="Celular:">
+                    <input th:field="*{username}" class='input correo'type="text" placeholder="Correo:">
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+                    <input th:field="*{password}" class='input contraseña'type="password" placeholder="Contraseña:">
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
                     <input class='boton'type="submit" value="registrarse">
                 </form>
             </div>

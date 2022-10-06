@@ -3,7 +3,7 @@
 
 <body>
 
-    <div class="container" style="text-align: end;">
+    <div th:if="${compra != null}" class="container" style="text-align: end;">
         <span>Tipo de cambio actual</span>
         <br>
         <span th:text="'Compra: S/. ' + ${compra} + ' - Venta: S/. ' + ${venta}"></span>
