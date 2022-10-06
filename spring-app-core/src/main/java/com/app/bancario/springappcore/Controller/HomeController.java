@@ -30,7 +30,7 @@ public class HomeController {
     @Autowired
     private ExchangeRatesApi exchangeRatesApi;
 
-    @GetMapping(path = {"" , "/index" , "/home" , "/"})
+    @GetMapping(path = {"/index" , "/home" , "/"})
     public String home(Model model){
         
        TipoCambio tcActual = _dataTipoCambio.findLastTipoCambio();
