@@ -33,14 +33,22 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-            .antMatchers( "/" , "/css/**" , "/assets/**" , "/img/**" , "/home" , "/index" , "/nosotros" , "/register/**" , "/verify/**").permitAll()
+        http.sessionManagement(session -> session
+             
+            .invalidSessionUrl("/sesion/expirada")
+        )
+            .authorizeRequests()
+            .antMatchers( "/" , "/css/**" , "/assets/**" , "/img/**" , "/home" , "/index" , "/nosotros" , "/register/**" , "/verify/**" , "/getTipoCambioActual" , "/sesion/expirada" , "/usuario/login/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin().loginPage("/usuario/login")
             .permitAll()
             .and()
-            .logout().permitAll();
+            .logout()
+            .invalidateHttpSession(true)
+            .clearAuthentication(true)
+            .deleteCookies("JSESSIONID")
+            .permitAll();
 
         return http.build();
     }

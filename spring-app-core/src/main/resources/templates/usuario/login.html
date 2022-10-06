@@ -6,7 +6,7 @@
     
             <div class="container_login">
                 <h2>Iniciar Sesion</h2>
-                
+                <p th:if="${sesion != null}" th:text="${sesion}"></p>
                 <form class="forma_login" th:action="@{/usuario/login}" method="post">
                     <input class='input correo'type="text" name="username" id="username" placeholder="Correo:" autofocus>
                     <input class='input contraseña'type="password" name="password" id="password" placeholder="Contraseña:" >
