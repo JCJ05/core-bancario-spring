@@ -9,11 +9,13 @@
         <span th:text="'Compra: S/. ' + ${compra} + ' - Venta: S/. ' + ${venta}"></span>
         <br>
         <span class="small" th:text="'Última actualización: ' + ${#dates.format(fechaHora, 'dd/MM/yyyy HH:mm:ss')}"></span>
-    </div>
+        <br>
+        <a class="btn" style="background-color: purple; color: white;" th:href="@{/getTipoCambioActual}">Actualizar tipo de cambio</a>
+      </div>
 
     <br>
 
-    <a th:href="@{/getTipoCambioActual}">Actualizar tipo de cambio</a>
+    
 
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
