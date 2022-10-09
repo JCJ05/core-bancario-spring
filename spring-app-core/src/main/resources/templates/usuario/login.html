@@ -17,5 +17,35 @@
             </div>
     
         </div>
+
+          <script th:inline="javascript">
+
+             
+                /*<![CDATA[*/
+                var autorizacion = /*[[${autorizacion}]]*/ "";
+                /*]]>*/
+
+                document.addEventListener('DOMContentLoaded' , () => {
+                
+                    if(autorizacion !== null){
+
+                        Swal.fire({
+                            icon:'error',
+                            title: 'Lo siento',
+                            text: autorizacion,
+                            showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                            }
+                        })
+                    }
+
+
+                })
+
+          </script>
+
     </body>
 </html>
