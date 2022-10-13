@@ -165,7 +165,7 @@ public class PagoController {
         pago.setMoneda(session.getAttribute("moneda").toString());
         pago.setMonto((Double)session.getAttribute("monto"));
         pago.setTcCompra((Double)session.getAttribute("tcCompra"));
-        pago.setTcCompra((Double)session.getAttribute("tcVenta"));
+        pago.setTcVenta((Double)session.getAttribute("tcVenta"));
 
         HttpEntity<Object> entity = new HttpEntity<Object>(pago);
         ResponseEntity<RespuestaPago> responseEntity;
@@ -181,9 +181,13 @@ public class PagoController {
                 model.addAttribute("mensajeRecarga", respuesta.getMensaje());
                 model.addAttribute("pago", respuesta.getTarjeta());
                 model.addAttribute("textoPago", getMontoText(respuesta.getTarjeta().getMoneda(), respuesta.getTarjeta().getMonto()));
-                model.addAttribute("pago", pago);
                 session.setAttribute("moneda", respuesta.getTarjeta().getMoneda());
                 session.setAttribute("monto", respuesta.getTarjeta().getMonto());
+                pago.setMoneda(session.getAttribute("moneda").toString());
+                pago.setMonto((Double)session.getAttribute("monto"));
+                pago.setTcCompra((Double)session.getAttribute("tcCompra"));
+                pago.setTcVenta((Double)session.getAttribute("tcVenta"));
+                model.addAttribute("pago", pago);
                 model.addAttribute("numCuota", numCuota);
                 model.addAttribute("cuota", cuota);
                 return "pago/pasarela";
@@ -193,6 +197,10 @@ public class PagoController {
                 model.addAttribute("mensajeError", respuesta.getMensaje());
                 model.addAttribute("pago", respuesta.getTarjeta());
                 model.addAttribute("textoPago", getMontoText(respuesta.getTarjeta().getMoneda(), respuesta.getTarjeta().getMonto()));
+                pago.setMoneda(session.getAttribute("moneda").toString());
+                pago.setMonto((Double)session.getAttribute("monto"));
+                pago.setTcCompra((Double)session.getAttribute("tcCompra"));
+                pago.setTcVenta((Double)session.getAttribute("tcVenta"));
                 model.addAttribute("pago", pago);
                 model.addAttribute("numCuota", numCuota);
                 model.addAttribute("cuota", cuota);
