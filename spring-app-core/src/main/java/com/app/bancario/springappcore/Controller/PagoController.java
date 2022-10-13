@@ -159,12 +159,8 @@ public class PagoController {
         if(pago.getMoneda().equals("PEN")){
           
             pago.setMoneda(solicitud.getTipo_moneda());
+            pago.setMonto(cuota.getMonto_total());
         }
-
-       
-        pago.setMonto(cuota.getMonto_total());
-
-      
 
         HttpEntity<Object> entity = new HttpEntity<Object>(pago);
         ResponseEntity<RespuestaPago> responseEntity;
