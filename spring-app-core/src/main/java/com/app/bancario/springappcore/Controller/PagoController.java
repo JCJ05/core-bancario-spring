@@ -2,6 +2,7 @@ package com.app.bancario.springappcore.Controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class PagoController {
     private CuotaRepository cuotaRepository;
     
     @GetMapping(path = "/cancelar")
-    public String pagarCuota(Authentication authentication , Model model , RedirectAttributes redirectAttributes){
+    public String pagarCuota(Authentication authentication , Model model , HttpSession session, RedirectAttributes redirectAttributes){
         
         Usuario usuario = usuarioRepository.findByUsername(authentication.getName());
         Solicitud solicitud = solicitudRepository.findByIdUsuarioAndStatus(usuario.getId()).orElse(null);
@@ -98,6 +99,11 @@ public class PagoController {
         pago.setTcCompra(tcActual.getCompra());
         pago.setTcVenta(tcActual.getVenta());
 
+        session.setAttribute("moneda", pago.getMoneda());
+        session.setAttribute("monto", pago.getMonto());
+        session.setAttribute("tcCompra", pago.getTcCompra());
+        session.setAttribute("tcVenta", pago.getTcVenta());
+
         String textoPago = "";
 
         if(pago.getMoneda().equals("PEN")){
@@ -123,7 +129,7 @@ public class PagoController {
     }
 
     @PostMapping("/pagar")
-    public String pagar(Model model, @Valid FormPago pago, BindingResult result, Authentication authentication ,RedirectAttributes redirectAttributes){
+    public String pagar(Model model, @Valid FormPago pago, HttpSession session, BindingResult result, Authentication authentication ,RedirectAttributes redirectAttributes){
 
         Usuario usuario = usuarioRepository.findByUsername(authentication.getName());
         Solicitud solicitud = solicitudRepository.findByIdUsuarioAndStatus(usuario.getId()).orElse(null);
@@ -156,11 +162,10 @@ public class PagoController {
            numCuota+=1;
         }
 
-        if(pago.getMoneda().equals("PEN")){
-          
-            pago.setMoneda(solicitud.getTipo_moneda());
-            pago.setMonto(cuota.getMonto_total());
-        }
+        pago.setMoneda(session.getAttribute("moneda").toString());
+        pago.setMonto((Double)session.getAttribute("monto"));
+        pago.setTcCompra((Double)session.getAttribute("tcCompra"));
+        pago.setTcCompra((Double)session.getAttribute("tcVenta"));
 
         HttpEntity<Object> entity = new HttpEntity<Object>(pago);
         ResponseEntity<RespuestaPago> responseEntity;
@@ -177,6 +182,8 @@ public class PagoController {
                 model.addAttribute("pago", respuesta.getTarjeta());
                 model.addAttribute("textoPago", getMontoText(respuesta.getTarjeta().getMoneda(), respuesta.getTarjeta().getMonto()));
                 model.addAttribute("pago", pago);
+                session.setAttribute("moneda", respuesta.getTarjeta().getMoneda());
+                session.setAttribute("monto", respuesta.getTarjeta().getMonto());
                 model.addAttribute("numCuota", numCuota);
                 model.addAttribute("cuota", cuota);
                 return "pago/pasarela";
