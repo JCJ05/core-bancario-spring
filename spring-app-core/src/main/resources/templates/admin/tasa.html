@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'tasa')}">
+   
+    <body>
+        
+        <div class="container">
+            
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                  Tarifa de interes
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" th:text="'La tasa especial anual es de: ' + ${tarifario.tea}"></li>
+                  <li class="list-group-item" th:text="'La tasa de desgravamen es de: ' + ${tarifario.desgravamen}"></li>
+                  <li class="list-group-item" th:text="'La tasa de mora es de: ' + ${tarifario.interes_mora}"></li>
+                  <li class="list-group-item" th:text="'La fecha de creacion de la ultima tarifa es de: ' + ${tarifario.fecha_creacion}"></li>
+                </ul>
+              </div>
+
+        </div>
+
+    </body>
+</html>

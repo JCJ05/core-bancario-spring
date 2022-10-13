@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'interes')}">
+   
+    <body>
+        
+        <div class="container">
+            
+            <h4>Ingresar Interes</h4>
+            <hr />
+
+            <div class="row animate__zoomInDown">
+                <form th:action="@{/admin/interes/guardar}" th:object="${tarifa}" method="POST">
+
+                    <div class="form-group row">
+                     
+                        <div class="col-md-4">
+                            <label>%Interes Desgravamen: </label>
+                            <input type="number" th:field="*{desgravamen}" class="form-control" step="0.001">
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('desgravamen')}" th:errors="*{desgravamen}"></small>
+                           
+                        </div>
+                        <div class="col-md-4">
+                            <label>%Tarifa especial anual: </label>
+                            <input type="number" th:field="*{tea}" class="form-control" step="0.01">
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('tea')}" th:errors="*{tea}"></small>
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <label>%Interes Mora: </label>
+                            <input type="number" th:field="*{interes_mora}" class="form-control" step="0.01">
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('interes_mora')}" th:errors="*{interes_mora}"></small>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn mt-2" style="background-color: purple; color: white;">Guardar Tarifa</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+    </body>
+</html>

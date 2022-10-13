@@ -45,8 +45,10 @@
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a th:href="@{/}" class="nav-link px-2" style="color: purple;"><strong>Inicio</strong></a></li>
             <li><a th:href="@{/nosotros}" class="nav-link px-2 link-dark">Nosotros</a></li>
-            <li><a th:href="@{/prestamo/}" class="nav-link px-2 link-dark">Prestamos</a></li>
-            <li><a th:href="@{/ahorro/}" class="nav-link px-2 link-dark">Abre tu cuenta de ahorro</a></li>
+            <li th:if="${#authorization.expression('hasRole(''ANONYMOUS'')')} or ${#authorization.expression('hasRole(''USER'')')}"><a th:href="@{/prestamo/}" class="nav-link px-2 link-dark">Prestamos</a></li>
+            <li th:if="${#authorization.expression('hasRole(''ANONYMOUS'')')} or ${#authorization.expression('hasRole(''USER'')')}"><a th:href="@{/ahorro/}" class="nav-link px-2 link-dark">Abre tu cuenta de ahorro</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/solicitudes}" class="nav-link px-2 link-dark">Solicitudes</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/interes}" class="nav-link px-2 link-dark">Tarifa Bancaria</a></li>
           </ul>
     
           <div class="col-md-3 text-end">

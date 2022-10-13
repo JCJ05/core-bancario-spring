@@ -8,39 +8,69 @@
 
             <a href="/prestamo/solicitar" class="btn" style="background-color: purple; color: white;">Solicitar un nuevo préstamo</a>
 
-            <table th:if="${listaPrestamos != null}" class="table">
+            <table th:if="${pendientes.size() > 0}" class="table">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Fecha de solicitud</th>
-                        <th>Monto total</th>
-                        <th>Próxima fecha de pago</th>
-                        <th></th>
+                        <th>Cuotas</th>
+                        <th>Monto</th>
+                        <th>Tipo Moneda</th>
+                        <th>Fecha Desembolso</th>
+                        <th>Status</th>
+                        <th>Ver Cronograma</th>
                     </tr>
                 </thead>
                 <tbody>
         
-                    <tr th:each="prestamo: ${listaPrestamos}">
-                        <td th:text="${prestamo.id}"></td>
-                        <td th:text="${prestamo.fecha}"></td>
-                        <td th:text="${prestamo.montoTotal}"></td>
-                        <td th:text="${prestamo.proximaFecha}"></td>
-                        <td>
-                            <a th:href="@{/__${prestamo.id}__}" class="btn" style="background-color: purple; color: white;">Ver cuotas</a>
-                        </td>
+                    <tr th:each="pendiente : ${pendientes}">
+                        <td th:text="${pendiente.cuotas}"></td>
+                        <td th:text="${pendiente.monto}"></td>
+                        <td th:text="${pendiente.tipo_moneda}"></td>
+                        <td th:text="${pendiente.fecha_desembolso}"></td>
+                        <td th:text="${pendiente.estado}"></td>
+                        <td th:if="${pendiente.estado == 'Aprobado'}"><a class="btn" style="background-color: purple; color: white;" th:href="@{/prestamo/cronograma}">Ver Cronograma</a></td>
+                        <td th:if="${pendiente.estado == 'Pendiente'}">-</td>
                     </tr>
                 
                 </tbody>
             </table>
 
 
-            <div class="alert alert-danger text-center mt-3" style="font-size: 18px;">
+            <div th:if="${pendientes.size() == 0}" class="alert alert-danger text-center mt-3" style="font-size: 18px;">
               
-                Lo siento pero no existe ninguna prestamo pendiente
+                Lo siento pero no tiene ningun prestamo pendiente, aprobado o rechazado.
 
             </div>
 
         </div>
+
+        <script th:inline="javascript">
+
+             
+            /*<![CDATA[*/
+            var autorizacion = /*[[${autorizacion}]]*/ "";
+            /*]]>*/
+
+            document.addEventListener('DOMContentLoaded' , () => {
+            
+                if(autorizacion !== null){
+
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Lo siento',
+                        text: autorizacion,
+                        showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    })
+                }
+
+
+            })
+
+      </script>
 
     </body>
 </html>

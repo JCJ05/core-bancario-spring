@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'cronograma')}">
+   
+    <body>
+        
+        <div class="container">
+            
+            <h2 class="text-center">Cronograma de pagos</h2>
+           
+            <a th:href="@{/pago/cancelar}" class="btn" style="background-color: purple; color: white;">Pagar Cuota</a>
+
+            <table th:if="${cuotas != null}" class="table table-striped">
+              
+                <thead>
+              
+                    <th>Cuotas</th>
+                    <th>Fecha de Pago</th>
+                    <th>N de dias</th>
+                    <th>Cuota</th>
+                    <th>Estado</th>
+                    <th>Mora</th>
+                    <th>Seguro</th>
+                    <th>Monto Total</th>
+
+                </thead>
+
+                <tbody>
+                 
+                    <tr th:each="cuota , iter : ${cuotas}">
+                    
+                        <td th:text="${iter.index + 1}"></td>
+                        <td th:text="${cuota.fecha_pago}"></td>
+                        <td th:text="${cuota.numero_dias}"></td>
+                        <td th:text="${cuota.cuota}"></td>
+                        <td th:text="${cuota.estado}"></td>
+                        <td th:text="${cuota.mora}"></td>
+                        <td th:text="${cuota.seguro}"></td>
+                        <td th:text="${cuota.monto_total}"></td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+          
+        </div>
+
+    </body>
+</html>

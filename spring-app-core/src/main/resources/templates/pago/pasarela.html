@@ -3,6 +3,20 @@
 
     <body>
 
+        <div class="card text-center mb-3">
+            <div class="card-header">
+              Detalle de la cuota
+            </div>
+            <div class="card-body">
+              <h5 class="card-title" th:text="'Numero de cuota: ' + ${numCuota}"></h5>
+              <p class="card-text" th:text="'Monto total a pagar ' + ${cuota.monto_total}"></p>
+            </div>
+            <div class="card-footer text-muted">
+               <p th:text="'Fecha maxima de pago: ' + ${cuota.fecha_pago}"></p>
+            </div>
+          </div>
+
+
             <div class="container bg-light d-md-flex align-items-center">
                 <div class="card box2 shadow-sm">
                     <div class="d-flex align-items-center justify-content-between p-md-5 p-4">

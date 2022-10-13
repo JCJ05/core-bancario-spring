@@ -9,59 +9,72 @@
             <hr />
 
             <div class="row">
-                <form th:action="@{/solicitar}" th:object="${solicitudPrestamo}" method="POST">
+                <form th:action="@{/prestamo/guardar}" th:object="${solicitud}" method="POST">
 
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <label>DNI</label>
-                            <input type="text" class="form-control">
+                            <label>Fecha de Desembolso: </label>
+                            <input type="date" th:field="*{fecha_desembolso}" class="form-control">
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('fecha_desembolso')}" th:errors="*{fecha_desembolso}"></small>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-6">
-                            <label>Moneda</label>
-                            <select class="form-control">
-                                <option value="">- Seleccione -</option>
+                        <div class="col-md-4">
+                            <label>Moneda: </label>
+                            <select class="form-control" th:field="*{tipo_moneda}">
+                                <option value="" selected>- Seleccione -</option>
                                 <option value="PEN">Soles (S/)</option>
                                 <option value="USD">Dólares Estadounidenses (US$)</option>
                             </select>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('tipo_moneda')}" th:errors="*{tipo_moneda}"></small>
                         </div>
                         <div class="col-md-4">
-                            <label>Monto</label>
-                            <input type="number" class="form-control" step="0.01">
+                            <label>Monto: </label>
+                            <input type="number" th:field="*{monto}" class="form-control" step="0.01">
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('monto')}" th:errors="*{monto}"></small>
                         </div>
                         <div class="col-md-2">
-                            <label>Nro. Cuotas</label>
-                            <input type="number" class="form-control" maxlength="2">
+                            <label>Nro. Cuotas: </label>
+                            <input type="number" th:field="*{cuotas}" class="form-control" maxlength="2">
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('cuotas')}" th:errors="*{cuotas}"></small>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Ingresos Mensuales: </label>
+                            <input type="number" th:field="*{sueldo_trabajo}" class="form-control" step="0.01">
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('sueldo_trabajo')}" th:errors="*{sueldo_trabajo}"></small>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <label>Explique la razón de su préstamo</label>
-                            <textarea rows="5" class="form-control"></textarea>
+                            <label>Explique la razón de su préstamo: </label>
+                            <textarea rows="5" th:field="*{razon_prestamo}" class="form-control"></textarea>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('razon_prestamo')}" th:errors="*{razon_prestamo}"></small>
                         </div>
                         <div class="col-md-6">
-                            <label>Explique brevemente su trabajo</label>
-                            <textarea rows="5" class="form-control"></textarea>
+                            <label>Explique brevemente su trabajo: </label>
+                            <textarea rows="5" th:field="*{des_trabajo}" class="form-control"></textarea>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('des_trabajo')}" th:errors="*{des_trabajo}"></small>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <label>Nro de hijos</label>
-                            <input type="number" class="form-control">
+                            <label>Nro de hijos: </label>
+                            <input type="number" th:field="*{num_hijos}" class="form-control">
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('num_hijos')}" th:errors="*{num_hijos}"></small>
                         </div>
                         <div class="col-md-6">
-                            <label>Hijos mayores de edad</label>
-                            <input type="number" class="form-control">
+                            <label>Hijos mayores de edad: </label>
+                            <input type="number" th:field="*{num_hijos_mayores}" class="form-control">
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('num_hijos_mayores')}" th:errors="*{num_hijos_mayores}"></small>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <button type="button" class="btn mt-2" style="background-color: purple; color: white;">Enviar solicitud</button>
+                            <button type="submit" class="btn mt-2" style="background-color: purple; color: white;">Enviar solicitud</button>
                         </div>
                     </div>
 

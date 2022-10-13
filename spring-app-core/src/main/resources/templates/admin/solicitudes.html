@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'solicitudes')}">
+   
+    <body>
+        
+        <div class="container">
+
+            <h1 class="text-center">Lista de solicitudes de Prestamo</h1>
+            
+            <table class="table table-striped" th:if="${lista_solicitudes.size() > 0}">
+                
+                <thead>
+                   
+                    <tr>
+                      
+                        <th>Dni</th>
+                        <th>Cuotas</th>
+                        <th>tipo_moneda</th>
+                        <th>Monto</th>
+                        <th>Fecha desembolso</th>
+                        <th>Ver Detalle</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                  
+                    <tr th:each="solicitud : ${lista_solicitudes}">
+                       
+                        <td th:text="${solicitud.usuario.dni}"></td>
+                        <td th:text="${solicitud.cuotas}"></td>
+                        <td th:text="${solicitud.tipo_moneda}"></td>
+                        <td th:text="${solicitud.monto}"></td>
+                        <td th:text="${solicitud.fecha_desembolso}"></td>
+                        <td><a class="btn btn-warning" th:href="@{'/admin/solicitud/detalle/' + ${solicitud.id}}">Ver Detalle</a></td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="alert alert-danger text-center" th:if="${lista_solicitudes.size() == 0}">
+
+                No hay solicitudes
+                 
+            </div>
+          
+        </div>
+
+    </body>
+</html>

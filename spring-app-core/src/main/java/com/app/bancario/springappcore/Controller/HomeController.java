@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.app.bancario.springappcore.integration.exchangerates.ExchangeRatesApi;
 import com.app.bancario.springappcore.integration.exchangerates.dto.ExchangeRatesResponse;
 import com.app.bancario.springappcore.model.TipoCambio;
-import com.app.bancario.springappcore.model.dto.FormPago;
 import com.app.bancario.springappcore.repository.TipoCambioRepository;
 import com.app.bancario.springappcore.service.MailService;
 
@@ -105,33 +104,5 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @GetMapping(path = "/testPago")
-    public String testPago(Model model, RedirectAttributes redirectAttributes){
-
-        TipoCambio tcActual = _dataTipoCambio.findLastTipoCambio();
-        FormPago pago = new FormPago();
-
-        pago.setNroTarjeta("");
-        pago.setMoneda("PEN");
-        pago.setMonto(48.25);
-        pago.setTcCompra(tcActual.getCompra());
-        pago.setTcVenta(tcActual.getVenta());
-
-        String textoPago = "";
-
-        if(pago.getMoneda().equals("PEN")){
-            textoPago += "S/. ";
-        }else{
-            textoPago += "$ ";
-        }
-
-        textoPago += pago.getMonto() + "";
-
-        redirectAttributes.addFlashAttribute("pago", pago);
-        redirectAttributes.addFlashAttribute("textoPago", textoPago);
-
-        return "redirect:/pago/pagar";
-
-    }
 
 }
