@@ -14,7 +14,7 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Fecha de Desembolso: </label>
-                            <input type="date" th:field="*{fecha_desembolso}" class="form-control">
+                            <input type="date" th:field="*{fecha_desembolso}" th:min="${fecha_hoy}" class="form-control">
                             <small class="form-text text-danger" th:if="${#fields.hasErrors('fecha_desembolso')}" th:errors="*{fecha_desembolso}"></small>
                         </div>
                     </div>

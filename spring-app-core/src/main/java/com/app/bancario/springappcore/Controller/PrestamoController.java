@@ -1,6 +1,8 @@
 package com.app.bancario.springappcore.Controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,12 +12,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.app.bancario.springappcore.integration.equifax.EquifaxApi;
 import com.app.bancario.springappcore.model.Cuota;
 import com.app.bancario.springappcore.model.Prestamo;
 import com.app.bancario.springappcore.model.Solicitud;
@@ -26,6 +32,7 @@ import com.app.bancario.springappcore.repository.PrestamoRepository;
 import com.app.bancario.springappcore.repository.SolicitudRepository;
 import com.app.bancario.springappcore.repository.TarifaRepository;
 import com.app.bancario.springappcore.repository.UsuarioRepository;
+import com.app.bancario.springappcore.validation.SolicitudValidador;
 
 @Controller
 @RequestMapping("/prestamo")
@@ -46,6 +53,32 @@ public class PrestamoController {
 
   @Autowired 
   private CuotaRepository  cuotaRepository;
+
+  @Autowired
+  private EquifaxApi equifaxApi;
+
+  @Autowired
+  private SolicitudValidador solicitudValidador;
+
+  @InitBinder
+  public void initBinder(WebDataBinder binder){
+
+    binder.addValidators(solicitudValidador);
+
+  }
+
+  @ModelAttribute("fecha_hoy")
+	public String fechaHoy() {
+		
+		Date date = new Date();
+		String fecha;
+		
+		fecha = new SimpleDateFormat("yyyy-MM-dd").format(date).toString();
+		
+		return  fecha;
+		
+	}
+
     
     @GetMapping(path = {"/", "", "/index"})
     public String index(RedirectAttributes attributes, Principal principal , Model model){
@@ -106,7 +139,9 @@ public class PrestamoController {
        Tarifa tarifa = repository.findByMaxFecha();
 
        String lista_negra = "El usuario no se encuentra en la lista negra";
-       String equifax = "El usuario no se encuentra en equifax";
+       String equifax = equifaxApi.findExitsUserInEquifaxByDni(usuario.getDni());
+
+       equifax = equifax != null ? equifax : "El usuario no registra deudas en Equifax";
 
        solicitud.setUsuario(usuario);
        solicitud.setTarifa(tarifa);
