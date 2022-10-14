@@ -38,7 +38,7 @@ public class SpringSecurityConfig {
             .invalidSessionUrl("/sesion/expirada")
         )
             .authorizeRequests()
-            .antMatchers( "/" , "/css/**" , "/assets/**" , "/img/**" , "/home" , "/index" , "/nosotros" , "/register/**" , "/verify/**" , "/getTipoCambioActual" , "/sesion/expirada" , "/usuario/login/**" , "/prestamo/**" , "/ahorro/**", "/testPago").permitAll()
+            .antMatchers( "/" , "/css/**" , "/assets/**" , "/img/**" , "/home" , "/index" , "/nosotros" , "/register/**" , "/verify/**" , "/getTipoCambioActual" , "/sesion/expirada" , "/usuario/login/**" , "/prestamo/**" , "/ahorro/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin().loginPage("/usuario/login")

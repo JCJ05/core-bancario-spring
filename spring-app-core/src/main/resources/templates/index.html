@@ -134,24 +134,24 @@
     <hr class="featurette-divider">
     </div>
     
-</body>
+    <script th:inline="javascript">
 
-<script th:inline="javascript">
-
-  /*<![CDATA[*/
-  var status = /*[[${status}]]*/ "";
-  var mensaje = /*[[${mensaje}]]*/ "";
-  /*]]>*/
-  
-  window.addEventListener('load', function() {
-    if(status !== null && mensaje !== null){
-      Swal.fire({
-        icon: 'success',
-        title: mensaje
+      /*<![CDATA[*/
+      var status = /*[[${status}]]*/ "";
+      var mensaje = /*[[${mensaje}]]*/ "";
+      /*]]>*/
+      
+      window.addEventListener('load', function() {
+        if(status !== null && mensaje !== null){
+          Swal.fire({
+            icon: 'success',
+            title: mensaje
+          });
+        }
       });
-    }
-  });
+    
+    </script>
 
-</script>
+</body>
 
 </html>
