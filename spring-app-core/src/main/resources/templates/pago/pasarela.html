@@ -108,8 +108,36 @@
     <script th:src="@{/assets/dist/js/jquery-3.6.1.min.js}"></script>
     <script th:src="@{/assets/dist/js/jquery.inputmask.min.js}"></script>
 
-    <script>
+    <script th:inline="javascript">
         
+        /*<![CDATA[*/
+        var status = /*[[${status}]]*/ "";
+        var mensajeError = /*[[${mensajeError}]]*/ "";
+        var mensajeRecarga = /*[[${mensajeError}]]*/ "";
+        /*]]>*/
+        
+        window.addEventListener('load', function() {
+          if(status !== null && mensaje !== null){
+
+            if(status === 'error'){
+
+                Swal.fire({
+                    icon: status,
+                    title: mensaje
+                });
+
+            }else{
+
+                Swal.fire({
+                    icon: 'info',
+                    title: mensaje
+                });
+
+            }
+
+          }
+        });
+
         window.addEventListener('load', function() {
             cambiarLogo(document.getElementById('nroTarjeta').value);
         });
