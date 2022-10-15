@@ -18,6 +18,7 @@ public class LogicaCuotasService {
         double cuotaMensual = solicitud.getMonto();;
         double cuotas = solicitud.getCuotas();
         double seguro = solicitud.getTarifa().getDesgravamen() / 100.0;
+        double itf = 0.005 / 100.0;
 
         // Calculo de la tasa efectiva mensual(tea)
 
@@ -33,9 +34,12 @@ public class LogicaCuotasService {
 
         double seguroDesgravamen = Math.round( seguro * cuotaMensual * 100.0)/100.0;
 
-        // Calculo de la cuota final
+        // Calculo de la cuota final y sumarle el Itf a cada cuota
 
-        double cuotaFinal = r + seguroDesgravamen;
+        double cuotaFinal = Math.round(( r + seguroDesgravamen) * 100.0)/100.0;
+        double calItf = Math.round((cuotaFinal * itf) * 100.0)/100.0;
+
+        cuotaFinal = Math.round((cuotaFinal + calItf) * 100.0)/100.0;
 
         // Algoritmo Final
 

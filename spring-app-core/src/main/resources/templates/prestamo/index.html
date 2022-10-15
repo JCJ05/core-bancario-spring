@@ -28,7 +28,7 @@
                         <td th:text="${pendiente.fecha_desembolso}"></td>
                         <td th:text="${pendiente.estado}"></td>
                         <td th:if="${pendiente.estado == 'Aprobado'}"><a class="btn" style="background-color: purple; color: white;" th:href="@{/prestamo/cronograma}">Ver Cronograma</a></td>
-                        <td th:if="${pendiente.estado == 'Pendiente'}">-</td>
+                        <td th:if="${pendiente.estado == 'Pendiente'} or ${pendiente.estado == 'Finalizado'}">-</td>
                     </tr>
                 
                 </tbody>
@@ -48,6 +48,8 @@
              
             /*<![CDATA[*/
             var autorizacion = /*[[${autorizacion}]]*/ "";
+            var status = /*[[${status}]]*/ "";
+            var mensaje = /*[[${mensaje}]]*/ "";
             /*]]>*/
 
             document.addEventListener('DOMContentLoaded' , () => {
@@ -65,6 +67,13 @@
                         popup: 'animate__animated animate__fadeOutUp'
                         }
                     })
+                }
+
+                if(status !== null && mensaje !== null){
+                        Swal.fire({
+                        icon: 'success',
+                        title: mensaje
+                        });
                 }
 
 

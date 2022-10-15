@@ -30,6 +30,7 @@ public class HomeController {
     @Autowired
     private ExchangeRatesApi exchangeRatesApi;
 
+
     @GetMapping(path = {"/index" , "/home" , "/"})
     public String home(Model model){
         

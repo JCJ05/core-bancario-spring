@@ -45,5 +45,23 @@
           
         </div>
 
+        <script th:inline="javascript">
+
+            /*<![CDATA[*/
+            var status = /*[[${status}]]*/ "";
+            var mensaje = /*[[${mensaje}]]*/ "";
+            /*]]>*/
+            
+            window.addEventListener('load', function() {
+              if(status !== null && mensaje !== null){
+                Swal.fire({
+                  icon: 'success',
+                  title: mensaje
+                });
+              }
+            });
+          
+          </script>
+
     </body>
 </html>

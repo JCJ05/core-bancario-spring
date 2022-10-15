@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.app.bancario.springappcore.integration.sunat.SunatApi;
 import com.app.bancario.springappcore.model.Cuota;
 import com.app.bancario.springappcore.model.Prestamo;
 import com.app.bancario.springappcore.model.Solicitud;
@@ -55,6 +56,9 @@ public class PagoController {
 
     @Autowired
     private CuotaRepository cuotaRepository;
+
+    @Autowired
+    private SunatApi sunatApi;
     
     @GetMapping(path = "/cancelar")
     public String pagarCuota(Authentication authentication , Model model , HttpSession session, RedirectAttributes redirectAttributes){
@@ -153,8 +157,14 @@ public class PagoController {
 
         Cuota cuota = new Cuota();
         int numCuota = 1;
+        boolean flag = false;
 
         for (Cuota cuota2 : cuotas) {
+
+            if(numCuota == cuotas.size()){
+                  
+                flag = true; 
+            }
 
             if(cuota2.getEstado().equals("Pendiente")){
 
@@ -216,7 +226,29 @@ public class PagoController {
                 cuotaRepository.save(cuota);
                 cuotaRepository.flush();
                 
-                return "redirect:/";
+                double sacarItf = cuota.getMonto_total() - (Math.round(cuota.getMonto_total() / 1.00005 * 100.0)/100.0);
+                double itf = Math.round(sacarItf * 100.0)/100.0;
+
+                int dniSunat = Integer.parseInt(usuario.getDni());
+
+                sunatApi.saveFacturaInSunat(dniSunat , cuota , itf);
+
+                if(flag){
+                   
+                    solicitud.setEstado("Finalizado");
+                    solicitudRepository.save(solicitud);
+                    solicitudRepository.flush();
+
+                    prestamo.setEstado("Finalizado");
+                    prestamo.setSolicitud(solicitud);
+                    prestamo.setCuotas(cuotaRepository.findByIdPrestamo(prestamo.getId()));
+                    prestamoRepository.save(prestamo);
+                    prestamoRepository.flush();
+
+                    return "redirect:/prestamo/index";
+                }
+                
+                return "redirect:/prestamo/cronograma";
             }
 
         }catch(Exception e){
