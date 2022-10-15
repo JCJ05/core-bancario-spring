@@ -22,10 +22,6 @@
                     <div class="d-flex align-items-center justify-content-between p-md-5 p-4">
                         <span class="h5 fw-bold m-0">Formulario de pago</span>
                     </div>
-                    <div class="card box2 shadow-sm">
-                        <p th:text="${mensajeRecarga}"></p>
-                        <p th:text="${mensajeError}" class="text-danger"></p>
-                    </div>
                     <form th:action="@{/pago/pagar}" th:object="${pago}" method="post">
                         <div class="row">
                             <div class="col-12">
