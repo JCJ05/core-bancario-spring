@@ -109,11 +109,11 @@
         /*<![CDATA[*/
         var status = /*[[${status}]]*/ "";
         var mensajeError = /*[[${mensajeError}]]*/ "";
-        var mensajeRecarga = /*[[${mensajeError}]]*/ "";
+        var mensajeRecarga = /*[[${mensajeRecarga}]]*/ "";
         /*]]>*/
         
         window.addEventListener('load', function() {
-          if(status !== null){
+          if(status !== null && status !== ""){
 
             if(status === 'error'){
 
