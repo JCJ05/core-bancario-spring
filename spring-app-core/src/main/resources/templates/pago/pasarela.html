@@ -74,7 +74,7 @@
                             <div class="col-4">
                                 <div class="d-flex flex-column px-md-5 px-5 mb-4">
                                     <span>CVV</span>
-                                    <input type="password" class="form-control" th:field="*{cvv}" minlength="3" maxlength="3">
+                                    <input type="password" class="form-control" th:field="*{cvv}" minlength="3" maxlength="3" required>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                             <div class="col-12">
                                 <div class="d-flex flex-column px-md-5 px-4 mb-4">
                                     <span>Nombre como figura en la tarjeta</span>
-                                    <input class="form-control text-uppercase" type="text" th:field="*{nombre}" minlength="10">
+                                    <input class="form-control text-uppercase" type="text" th:field="*{nombre}" minlength="10" required>
                                 </div>
                             </div>
                         </div>
