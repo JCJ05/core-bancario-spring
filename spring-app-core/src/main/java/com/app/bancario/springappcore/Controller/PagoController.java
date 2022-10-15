@@ -124,6 +124,7 @@ public class PagoController {
         redirectAttributes.addFlashAttribute("textoPago", textoPago);
         redirectAttributes.addFlashAttribute("numCuota", numCuota);
         redirectAttributes.addFlashAttribute("cuota", cuota);
+        redirectAttributes.addFlashAttribute("status", ""); //Enviando status vacío para que no salga el modal al inicio.
 
         return "redirect:/pago/pagar";
         
