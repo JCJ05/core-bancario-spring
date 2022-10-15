@@ -189,7 +189,7 @@ public class PagoController {
             RespuestaPago respuesta = responseEntity.getBody();
 
             if(respuesta.getStatus().equals("reload")){
-                
+                model.addAttribute("status", respuesta.getStatus());
                 model.addAttribute("mensajeRecarga", respuesta.getMensaje());
                 model.addAttribute("pago", respuesta.getTarjeta());
                 model.addAttribute("textoPago", getMontoText(respuesta.getTarjeta().getMoneda(), respuesta.getTarjeta().getMonto()));
@@ -206,6 +206,7 @@ public class PagoController {
             }
 
             if(respuesta.getStatus().equals("error")){
+                model.addAttribute("status", respuesta.getStatus());
                 model.addAttribute("mensajeError", respuesta.getMensaje());
                 model.addAttribute("pago", respuesta.getTarjeta());
                 model.addAttribute("textoPago", getMontoText(respuesta.getTarjeta().getMoneda(), respuesta.getTarjeta().getMonto()));
