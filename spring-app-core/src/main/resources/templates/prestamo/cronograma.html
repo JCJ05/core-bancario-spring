@@ -31,11 +31,11 @@
                         <td th:text="${iter.index + 1}"></td>
                         <td th:text="${cuota.fecha_pago}"></td>
                         <td th:text="${cuota.numero_dias}"></td>
-                        <td th:text="${cuota.cuota}"></td>
+                        <td th:text="${monedaSymbol} + ' ' + ${cuota.cuota}"></td>
                         <td th:text="${cuota.estado}"></td>
-                        <td th:text="${cuota.mora}"></td>
-                        <td th:text="${cuota.seguro}"></td>
-                        <td th:text="${cuota.monto_total}"></td>
+                        <td th:text="${monedaSymbol} + ' ' + ${cuota.mora}"></td>
+                        <td th:text="${monedaSymbol} + ' ' + ${cuota.seguro}"></td>
+                        <td th:text="${monedaSymbol} + ' ' + ${cuota.monto_total}"></td>
 
                     </tr>
 

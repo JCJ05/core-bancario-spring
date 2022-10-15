@@ -148,6 +148,16 @@ public class PrestamoController {
       
         model.addAttribute("cuotas", cuotas);
 
+        String monedaSymbol;
+
+        if(solicitud.getTipo_moneda().equals("PEN")){
+          monedaSymbol = "S/.";
+        }else{
+          monedaSymbol = "$";
+        }
+
+        model.addAttribute("monedaSymbol", monedaSymbol);
+
         return "prestamo/cronograma";
     }
 
