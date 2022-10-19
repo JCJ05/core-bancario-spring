@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -180,7 +181,9 @@ public class PagoController {
         pago.setTcCompra((Double)session.getAttribute("tcCompra"));
         pago.setTcVenta((Double)session.getAttribute("tcVenta"));
 
-        HttpEntity<Object> entity = new HttpEntity<Object>(pago);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("apikey", System.getenv("API_KEY_TARJETAS"));
+        HttpEntity<Object> entity = new HttpEntity<Object>(pago, headers);
         ResponseEntity<RespuestaPago> responseEntity;
 
         try{
@@ -259,7 +262,7 @@ public class PagoController {
 
 
         redirectAttributes.addFlashAttribute("status", "error");
-        redirectAttributes.addFlashAttribute("mensaje", "Error desconocido");
+        redirectAttributes.addFlashAttribute("mensaje", "No está autenticado");
         return "redirect:/";
 
     }
