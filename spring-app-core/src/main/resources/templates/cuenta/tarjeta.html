@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'tarjeta')}">
+
+    <body>
+        
+        <div class="contenedor">
+
+            <div class="alert alert-danger text-center" th:if="${cuenta == null}">
+
+                No existe niguna cuenta asociada a este usuario o la tarjeta esta a la espera de ser aprobada
+                 
+            </div>
+       
+        <div th:if="${cuenta != null}">
+            <section  class="tarjeta" id="tarjeta" >
+                <div class="delantera">
+                    <div class="logo-marca" id="logo-marca">
+                        <!-- <img src="img/logos/visa.png" alt=""> -->
+                    </div>
+                    <img th:src="@{/img/chip-tarjeta.png}" class="chip" alt="">
+                    <div class="datos">
+                        <div class="grupo" id="numero">
+                            <p class="label">Número Tarjeta</p>
+                            <p class="numero" th:text="${tarjeta.nroTarjeta}"></p>
+                        </div>
+                        <div class="flexbox">
+                            <div class="grupo" id="nombre">
+                                <p class="label">Nombre Tarjeta</p>
+                                <p class="nombre" th:text="${tarjeta.nombre_titular}"></p>
+                            </div>
+    
+                            <div class="grupo" id="expiracion">
+                                <p class="label">Expiracion</p>
+                                <p class="expiracion"><span class="mes" th:text="${tarjeta.dueMonth}"></span> / <span class="year" th:text="${tarjeta.dueYear}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="trasera">
+                    <div class="barra-magnetica"></div>
+                    <div class="datos">
+                        <div class="grupo" id="firma">
+                            <p class="label">Firma</p>
+                            <div class="firma"><p th:text="${tarjeta.nombre_titular}"></p></div>
+                        </div>
+                        <div class="grupo" id="ccv">
+                            <p class="label">CCV</p>
+                            <p class="ccv" th:text="${tarjeta.cvv}"></p>
+                        </div>
+                    </div>
+                    <p class="leyenda">No comparta esta informacion con nadie.</p>
+                    <a href="https://spring-core-programacion.herokuapp.com" class="link-banco">Fuxia Bank</a>
+                </div>
+            </section>
+
+            <div style="display: flex; justify-content: space-between;" class="mt-3">
+            
+             <div style="display: flex; margin-right: 20px;" >
+             
+                <div style="margin-right: 20px;">
+                    <p>Activar Tarjeta: </p>
+                </div>
+
+                <div class="form-check form-switch">
+                    <input th:if="${status == true}" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked >
+                    <input th:if="${status == false}" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"  >
+               </div>
+
+            </div>
+
+                <div th:text="' Monto: S./' + ${saldo}">
+                 
+                </div>
+
+            </div>
+
+            <div style="width: 100%; max-width: 550px;" class="card mt-3">
+                <div class="card-header">
+                  Movimientos
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Movimientos de la Tarjeta</h5>
+                  <p class="card-text">Proximamente</p>
+                 
+                </div>
+              </div>
+             
+              <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Abonar Tarjeta</button>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Abonar </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form th:action="@{/cuenta/abonar}" method="post">
+                        <div class="mb-3">
+                          <label for="recipient-name" class="col-form-label">Monto que desea Abonar: </label>
+                          <input type="number" name="monto" class="form-control" id="monto" step="0.001">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Abonar Monto</button>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+        </div>
+    
+        <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+        <script th:src="@{/js/main.js}"></script>
+       
+    </body>
+</html>

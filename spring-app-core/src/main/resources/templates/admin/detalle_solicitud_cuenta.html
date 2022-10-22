@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout (~{::body},'detalle_solicitud_cuenta')}">
+   
+    <body>
+        
+        <div class="container">
+             
+            <div class="row">
+              
+              <div class="col-sm-12 mb-3">
+                <div class="card text-center">
+                    <div class="card-header">
+                      Detalle de la solicitud de la Apertura de Cuenta de Ahorro
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Info del usuario</h5>
+                      <p class="card-text" th:text="'Numero de Dni: ' + ${cuenta.usuario.dni}"></p>
+                      <p class="card-text" th:text="'Nombres: ' + ${cuenta.nombreTarjeta}"></p>
+                    </div>
+                    <div class="card-footer text-muted">
+                    
+                    </div>
+                  </div>
+                </div>
+
+
+               <div class="col-sm-6">
+                  
+                <div class="card text-dark bg-light mb-3">
+                    <div class="card-header">Cuenta de Ahorro</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Detalles de la cuenta de ahorro</h5>
+                      <p class="card-text">Detalles especificos de la cuenta de ahorro</p>
+                    </div>
+                       
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:text="'Tipo de Moneda: ' +  ${cuenta.tipo_moneda}"></li>
+                        <li class="list-group-item" th:if="${cuenta.tipo_tarjeta == 'V'}" th:text="'Tipo de Tarjeta: ' + Visa"></li>
+                        <li class="list-group-item" th:if="${cuenta.tipo_tarjeta == 'M'}" th:text="'Tipo de Tarjeta: ' + Mastercard"></li>
+                        <li class="list-group-item" th:text="'Fecha de solicitud: ' + ${cuenta.fecha_solicitud}"></li>
+                      </ul>
+
+                  </div>
+
+               </div>
+
+
+
+               <div class="col-sm-6">
+                       
+                <div class="card text-dark bg-light mb-3">
+                    <div class="card-header">Informacion</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Informacion Crediticia</h5>
+                      <p class="card-text">Detalles crediticios de terceros</p>
+                    </div>
+                       
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:text="${cuenta.listas_negras}"></li>
+                        <li class="list-group-item" th:text="${cuenta.equifax}"></li>
+                      </ul>
+
+                  </div>
+                
+               </div>
+               
+               
+                <div class="col-md-12">
+                   
+                   <button id="btnAprobar" class="btn btn-success">Aprobar Cuenta</button>
+                   <button id="btnDesaprobar" class="btn btn-danger">Desaprobar Cuenta</button>
+
+                </div>
+            
+
+            </div>
+           
+        </div>
+
+        <script th:inline="javascript">
+
+          
+                /*<![CDATA[*/
+                var idCuenta = /*[[${idCuenta}]]*/ "";
+                /*]]>*/
+
+         
+                const btnAprobar = document.getElementById('btnAprobar');
+                const btnDesaprobar = document.getElementById('btnDesaprobar');
+
+                btnAprobar.addEventListener('click', () => {
+                    console.log(idCuenta);
+                  Swal.fire({
+                          title: 'Estas seguro de aprobar la creacion de la cuenta de ahorro?',
+                          text: "Recuerda que una vez que se apruebe la creacion esta accion no se puede revertir!",
+                          icon: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: 'Si aprobar cuenta de ahorro!',
+                          cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            Swal.fire(
+                              'Aprobado!',
+                              'La cuenta de ahorro a sido aprobada.',
+                              'success'
+                            )
+
+                            window.location.href = "/admin/aprobar/cuenta/" + idCuenta;
+                          }
+                    })
+
+                   
+                });
+
+                btnDesaprobar.addEventListener('click', () => {
+                    
+                  Swal.fire({
+                          title: 'Estas seguro de desaprobar la creacion de la cuenta de ahorro?',
+                          text: "Recuerda que una vez que se desapruebe  la creacion esta accion no se puede revertir!",
+                          icon: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: 'Si desaprobar cuenta de ahorro!',
+                          cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            Swal.fire(
+                              'Denegado!',
+                              'La cuenta de ahorro a sido Denegado.',
+                              'success'
+                            )
+
+                            window.location.href = '/admin/desaprobar/cuenta/' + idCuenta;
+                          }
+                    })
+
+
+                  
+                });
+
+
+        </script>
+
+    </body>
+</html>

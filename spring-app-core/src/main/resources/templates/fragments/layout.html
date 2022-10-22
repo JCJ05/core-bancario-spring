@@ -33,6 +33,8 @@
     <link th:href="@{/css/headers.css}" rel="stylesheet">
     <link th:href="@{/css/stylesRegister.css}" rel="stylesheet">
     <link th:href="@{/css/stylesLogin.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Liu+Jian+Mao+Cao&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
@@ -47,7 +49,9 @@
             <li><a th:href="@{/nosotros}" class="nav-link px-2 link-dark">Nosotros</a></li>
             <li th:if="${#authorization.expression('hasRole(''ANONYMOUS'')')} or ${#authorization.expression('hasRole(''USER'')')}"><a th:href="@{/prestamo/}" class="nav-link px-2 link-dark">Prestamos</a></li>
             <li th:if="${#authorization.expression('hasRole(''ANONYMOUS'')')} or ${#authorization.expression('hasRole(''USER'')')}"><a th:href="@{/ahorro/}" class="nav-link px-2 link-dark">Abre tu cuenta de ahorro</a></li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/solicitudes}" class="nav-link px-2 link-dark">Solicitudes</a></li>
+            <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/cuenta/tarjeta}" class="nav-link px-2 link-dark">Mi cuenta de Ahorro</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/solicitudes}" class="nav-link px-2 link-dark">Solicitudes de Prestamo</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/solicitudes/cuenta}" class="nav-link px-2 link-dark">Aperturas de cuenta</a></li>
             <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/interes}" class="nav-link px-2 link-dark">Tarifa Bancaria</a></li>
           </ul>
     

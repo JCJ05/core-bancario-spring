@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html th:replace="~{fragments/layout :: layout (~{::body},'pago')}">
 
+    
+
     <body>
 
         <div class="card text-center mb-3">
@@ -15,92 +17,197 @@
                <p th:text="'Fecha maxima de pago: ' + ${cuota.fecha_pago}"></p>
             </div>
           </div>
+    
+        <div class="container mb-3">
+          <div  style="display: flex; justify-content: space-between;">
+            <a th:href="@{/pago/pagar/cuenta}" id="cuenta_ahorro" class="list-group-item list-group-item-action text-center"> Pagar con Cuenta de Ahorro Personal</a>
+            <a th:href="@{/pago/pagar/tarjeta}" id="tarjeta_compra" class="list-group-item list-group-item-action text-center"> Pagar con Tarjeta Visa o Mastercard </a>
+          </div>
+        </div>
 
+            <div th:if="${tarjetaValidacion != null}" >
 
-            <div class="container bg-light d-md-flex align-items-center">
-                <div class="card box2 shadow-sm">
-                    <div class="d-flex align-items-center justify-content-between p-md-5 p-4">
-                        <span class="h5 fw-bold m-0">Formulario de pago</span>
-                    </div>
-                    <form th:action="@{/pago/pagar}" th:object="${pago}" method="post">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="d-flex flex-column px-md-5 px-4 mb-4">
-                                    <span>Número de tarjeta</span>
-                                    <div class="inputWithIcon">
-                                        <input type="text" class="form-control" id="nroTarjeta" th:field="*{nroTarjeta}" data-inputmask="'mask': '9999 9999 9999 9999'" minlength="19" maxlength="19" oninput="cambiarLogo(this.value);" required>
-                                        <span class="">
-                                            <img class="imgLogo" id="logoTipoTarjeta" alt="" width="64" height="36">
-                                        </span>
+                <div class="contenedor">
+
+                    <!-- Tarjeta -->
+                    <section class="tarjeta" id="tarjeta">
+                        <div class="delantera">
+                            <div class="logo-marca" id="logo-marca">
+                              
+                            </div>
+                            <img th:src="@{/img/chip-tarjeta.png}" class="chip" alt="">
+                            <div class="datos">
+                                <div class="grupo" id="numero">
+                                    <p class="label">Número Tarjeta</p>
+                                    <p class="numero">#### #### #### ####</p>
+                                </div>
+                                <div class="flexbox">
+                                    <div class="grupo" id="nombre">
+                                        <p class="label">Nombre Tarjeta</p>
+                                        <p class="nombre">TU NOMBRE AQUI</p>
+                                    </div>
+                
+                                    <div class="grupo" id="expiracion">
+                                        <p class="label">Expiracion</p>
+                                        <p class="expiracion"><span class="mes">MM</span> / <span class="year">AAAA</span></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="d-flex flex-column px-5">
-                                    <span>Mes</span>
-                                    <select class="form-control" th:field="*{dueMonth}" required>
-                                        <option value="">- Seleccione -</option>
-                                        <option value="01">Enero</option>
-                                        <option value="02">Febrero</option>
-                                        <option value="03">Marzo</option>
-                                        <option value="04">Abril</option>
-                                        <option value="05">Mayo</option>
-                                        <option value="06">Junio</option>
-                                        <option value="07">Julio</option>
-                                        <option value="08">Agosto</option>
-                                        <option value="09">Setiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
-                                    </select>
+                
+                        <div class="trasera">
+                            <div class="barra-magnetica"></div>
+                            <div class="datos">
+                                <div class="grupo" id="firma">
+                                    <p class="label">Firma</p>
+                                    <div class="firma"><p></p></div>
+                                </div>
+                                <div class="grupo" id="ccv">
+                                    <p class="label">CCV</p>
+                                    <p class="ccv"></p>
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <div class="d-flex flex-column px-5">
-                                    <span>Año</span>
-                                    <select class="form-control" th:field="*{dueYear}" required>
-                                        <option value="">- Seleccione -</option>
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                        <option value="2026">2026</option>
-                                        <option value="2027">2027</option>
-                                    </select>
+                            <p class="leyenda">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus exercitationem, voluptates illo.</p>
+                            <a href="#" class="link-banco">www.tubanco.com</a>
+                        </div>
+                    </section>
+                
+                    <!-- Contenedor Boton Abrir Formulario -->
+                    <div class="contenedor-btn">
+                        <button class="btn-abrir-formulario" id="btn-abrir-formulario">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                
+                    <!-- Formulario -->
+                    <form th:action="@{/pago/pagar}" th:object="${pago}" method="post"  id="formulario-tarjeta" class="formulario-tarjeta">
+                        <div class="grupo">
+                            <label for="inputNumero">Número Tarjeta</label>
+                            <input type="text"  th:field="*{nroTarjeta}" id="inputNumero" minlength="19" maxlength="19" autocomplete="off">
+                        </div>
+                        <div class="grupo">
+                            <label for="inputNombre">Nombre</label>
+                            <input th:field="*{nombre}" type="text" id="inputNombre" minlength="10"  maxlength="35" autocomplete="off" required>
+                        </div>
+                        <div class="flexbox">
+                            <div class="grupo expira">
+                                <label for="selectMes">Expiracion</label>
+                                <div class="flexbox">
+                                    <div class="grupo-select">
+                                            <select id="selectMes" class="form-control" th:field="*{dueMonth}" required>
+                                                <option value="">- Seleccione -</option>
+                                                <option value="01">Enero</option>
+                                                <option value="02">Febrero</option>
+                                                <option value="03">Marzo</option>
+                                                <option value="04">Abril</option>
+                                                <option value="05">Mayo</option>
+                                                <option value="06">Junio</option>
+                                                <option value="07">Julio</option>
+                                                <option value="08">Agosto</option>
+                                                <option value="09">Setiembre</option>
+                                                <option value="10">Octubre</option>
+                                                <option value="11">Noviembre</option>
+                                                <option value="12">Diciembre</option>
+                                            </select>
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                    <div class="grupo-select">
+                                            <select id="selectYear" class="form-control" th:field="*{dueYear}" required>
+                                                <option value="">- Seleccione -</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024">2024</option>
+                                                <option value="2025">2025</option>
+                                                <option value="2026">2026</option>
+                                                <option value="2027">2027</option>
+                                            </select>
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
                                 </div>
                             </div>
-                        
-                            <div class="col-4">
-                                <div class="d-flex flex-column px-md-5 px-5 mb-4">
-                                    <span>CVV</span>
-                                    <input type="password" class="form-control" th:field="*{cvv}" minlength="3" maxlength="3" required>
-                                </div>
+                
+                            <div class="grupo ccv">
+                                <label for="inputCCV">CCV</label>
+                                <input type="text" th:field="*{cvv}" id="inputCCV" maxlength="3" required>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="d-flex flex-column px-md-5 px-4 mb-4">
-                                    <span>Nombre como figura en la tarjeta</span>
-                                    <input class="form-control text-uppercase" type="text" th:field="*{nombre}" minlength="10" required>
-                                </div>
-                            </div>
-                        </div>
-
+                       
                         <input type="text" th:field="*{moneda}" hidden>
                         <input type="text" th:field="*{monto}" hidden>
                         <input type="text" th:field="*{tcCompra}" hidden>
                         <input type="text" th:field="*{tcVenta}" hidden>
+                
+                        <button type="submit" class="btn-enviar" th:text="'Pagar ' + ${textoPago}"></button>
+                    </form>
+                </div>
+               
 
-                        <div class="col-12 px-md-5 px-4 mt-3">
-                            <button class="btn w-100" style="background-color: purple; color: white;" th:text="'Pagar ' + ${textoPago}"></button>
+           </div>
+
+        <div th:if="${cuentaValidacion != null}" class="container">
+
+            <div class="contenedor">
+
+                <div class="alert alert-danger text-center" th:if="${cuenta == null}">
+    
+                    No existe niguna cuenta asociada a este usuario o la tarjeta esta a la espera de ser aprobada
+                     
+                </div>
+    
+                <div th:if="${cuenta != null}">
+                    <section  class="tarjeta" id="tarjeta" >
+                        <div class="delantera">
+                            <div class="logo-marca" id="logo-marca">
+                                <!-- <img src="img/logos/visa.png" alt=""> -->
+                            </div>
+                            <img src="img/chip-tarjeta.png" class="chip" alt="">
+                            <div class="datos">
+                                <div class="grupo" id="numero">
+                                    <p class="label">Número Tarjeta</p>
+                                    <p class="numero" th:text="${tarjeta.nroTarjeta}"></p>
+                                </div>
+                                <div class="flexbox">
+                                    <div class="grupo" id="nombre">
+                                        <p class="label">Nombre Tarjeta</p>
+                                        <p class="nombre" th:text="${tarjeta.nombre_titular}"></p>
+                                    </div>
+            
+                                    <div class="grupo" id="expiracion">
+                                        <p class="label">Expiracion</p>
+                                        <p class="expiracion"><span class="mes" th:text="${tarjeta.dueMonth}"></span> / <span class="year" th:text="${tarjeta.dueYear}"></span></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+            
+                        <div class="trasera">
+                            <div class="barra-magnetica"></div>
+                            <div class="datos">
+                                <div class="grupo" id="firma">
+                                    <p class="label">Firma</p>
+                                    <div class="firma"><p th:text="${tarjeta.nombre_titular}"></p></div>
+                                </div>
+                                <div class="grupo" id="ccv">
+                                    <p class="label">CCV</p>
+                                    <p class="ccv" th:text="${tarjeta.cvv}"></p>
+                                </div>
+                            </div>
+                            <p class="leyenda">No comparta esta informacion con nadie.</p>
+                            <a href="https://spring-core-programacion.herokuapp.com" class="link-banco">Fuxia Bank</a>
+                        </div>
+                    </section>
+        
+                    <a th:href="@{/pago/pagar/cuenta/cuota}" class="btn mt-3" style="background-color: purple; color: white;">Pagar con cuenta de ahorro</a>
+        
                     </div>
-                </form>
+        
             </div>
+
         </div>
 
+    <link rel="stylesheet" th:href="@{/css/estilosTarjeta.css}">
+
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/tarjetaLogica.js}"></script>
     <script th:src="@{/assets/dist/js/jquery-3.6.1.min.js}"></script>
     <script th:src="@{/assets/dist/js/jquery.inputmask.min.js}"></script>
 
@@ -110,6 +217,8 @@
         var status = /*[[${status}]]*/ "";
         var mensajeError = /*[[${mensajeError}]]*/ "";
         var mensajeRecarga = /*[[${mensajeRecarga}]]*/ "";
+        var cuentaValidacion = /*[[${cuentaValidacion}]]*/ "";
+        var tarjetaValidacion = /*[[${tarjetaValidacion}]]*/ "";
         /*]]>*/
         
         window.addEventListener('load', function() {
@@ -132,6 +241,29 @@
             }
 
           }
+
+          const cuenta = document.getElementById('cuenta_ahorro');
+          const tarjeta = document.getElementById('tarjeta_compra');
+
+            if(cuenta.classList.contains('active')){
+                    cuenta.classList.remove('active');
+            }
+
+            if(tarjeta.classList.contains('active')){
+                        tarjeta.classList.remove('active');
+            }
+
+            if(cuentaValidacion !== null && cuentaValidacion !== ""){
+
+                cuenta.classList.add('active');
+                return;
+            }
+
+            if(tarjetaValidacion !== null && tarjetaValidacion !== ""){
+         
+                    tarjeta.classList.add('active');
+                    return;
+            }
         });
 
         window.addEventListener('load', function() {

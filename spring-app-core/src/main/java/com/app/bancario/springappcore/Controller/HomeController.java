@@ -31,6 +31,7 @@ public class HomeController {
     private ExchangeRatesApi exchangeRatesApi;
 
 
+
     @GetMapping(path = {"/index" , "/home" , "/"})
     public String home(Model model){
         
@@ -46,7 +47,7 @@ public class HomeController {
     
     @GetMapping(path = "/nosotros")
     public String nosotros(){
-
+      
         return "nosotros";
     }
  
