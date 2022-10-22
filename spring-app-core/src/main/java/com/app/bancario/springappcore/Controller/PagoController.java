@@ -484,7 +484,7 @@ public class PagoController {
 
 
         redirectAttributes.addFlashAttribute("status", "error");
-        redirectAttributes.addFlashAttribute("mensaje", "Error desconocido");
+        redirectAttributes.addFlashAttribute("mensaje", "No está autenticado");
         return "redirect:/";
 
     }

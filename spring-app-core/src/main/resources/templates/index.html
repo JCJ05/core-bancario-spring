@@ -134,6 +134,25 @@
     <hr class="featurette-divider">
     </div>
     
+    <script th:inline="javascript">
+        
+      /*<![CDATA[*/
+      var status = /*[[${status}]]*/ "";
+      var mensaje = /*[[${mensaje}]]*/ "";
+      /*]]>*/
+      
+      window.addEventListener('load', function() {
+        if(status !== null && status !== "" && mensaje !== null && mensaje !== ""){
+
+            Swal.fire({
+                icon: status,
+                title: mensaje
+            });
+
+        }
+      });
+
+  </script>
 
 </body>
 
