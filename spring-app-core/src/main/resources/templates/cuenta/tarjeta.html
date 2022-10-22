@@ -15,7 +15,8 @@
             <section  class="tarjeta" id="tarjeta" >
                 <div class="delantera">
                     <div class="logo-marca" id="logo-marca">
-                        <!-- <img src="img/logos/visa.png" alt=""> -->
+                         <img th:if="${cuenta.solicitud.tipo_tarjeta == 'V'}" th:src="@{/img/visa.png}" alt="VISA">
+                         <img th:if="${cuenta.solicitud.tipo_tarjeta == 'M'}" th:src="@{/img/mastercard.png}" alt="mastercard">
                     </div>
                     <img th:src="@{/img/chip-tarjeta.png}" class="chip" alt="">
                     <div class="datos">
@@ -99,7 +100,7 @@
                       <form th:action="@{/cuenta/abonar}" method="post">
                         <div class="mb-3">
                           <label for="recipient-name" class="col-form-label">Monto que desea Abonar: </label>
-                          <input type="number" name="monto" class="form-control" id="monto" step="0.001">
+                          <input type="number" name="monto" class="form-control" id="monto" step="0.001" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Abonar Monto</button>
                       </form>
