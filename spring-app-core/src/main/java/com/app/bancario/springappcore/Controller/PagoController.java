@@ -256,7 +256,7 @@ public class PagoController {
         pago.setTcCompra((Double)session.getAttribute("tcCompra"));
         pago.setTcVenta((Double)session.getAttribute("tcVenta"));
 
-        String apiKey = "API_KEY_PASARELAS";
+        String apiKey = System.getenv("API_KEY_PASARELAS");
      
         HttpHeaders headers = new HttpHeaders();
         headers.set("apiKey", apiKey);
@@ -391,7 +391,7 @@ public class PagoController {
         pago.setTcCompra((Double)session.getAttribute("tcCompra"));
         pago.setTcVenta((Double)session.getAttribute("tcVenta"));
 
-        String apiKey = "API_KEY_PASARELAS";
+        String apiKey = System.getenv("API_KEY_PASARELAS");
   
         HttpHeaders headers = new HttpHeaders();
         headers.set("apiKey", apiKey);
@@ -484,7 +484,7 @@ public class PagoController {
 
 
         redirectAttributes.addFlashAttribute("status", "error");
-        redirectAttributes.addFlashAttribute("mensaje", "No está autenticado");
+        redirectAttributes.addFlashAttribute("mensaje", "Error desconocido");
         return "redirect:/";
 
     }

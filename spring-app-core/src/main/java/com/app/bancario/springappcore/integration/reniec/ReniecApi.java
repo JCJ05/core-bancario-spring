@@ -18,7 +18,7 @@ public class ReniecApi {
     public UserReniec findExitsUserByDni(String dni){
 
         UserReniec reniec = null;
-        String apiKey = "API_KEY_RENIEC";
+        String apiKey = System.getenv("API_KEY_RENIEC");
 
         HashMap<String, String> uriVariables = new HashMap<>();
 

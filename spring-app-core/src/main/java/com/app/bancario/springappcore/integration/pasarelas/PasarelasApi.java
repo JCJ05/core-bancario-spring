@@ -24,7 +24,7 @@ public class PasarelasApi {
 
    public RespuestaPasarela crearTarjetaUsuario(UsuarioPasarela usuarioPasarela){
 
-      String apiKey = "API_KEY_PASARELAS";
+      String apiKey = System.getenv("API_KEY_PASARELAS");
       String url = "https://fuxia-pass.herokuapp.com/api/tarjeta/crearTarjeta";
 
       HttpHeaders headers = new HttpHeaders();
@@ -55,7 +55,7 @@ public class PasarelasApi {
 
    public String activarTarjeta(ActivarTarjeta activarTarjeta){
 
-      String apiKey = "API_KEY_PASARELAS";
+      String apiKey = System.getenv("API_KEY_PASARELAS");
       String url = "https://fuxia-pass.herokuapp.com/api/tarjeta/activar";
 
       HttpHeaders headers = new HttpHeaders();
@@ -84,7 +84,7 @@ public class PasarelasApi {
 
    public ModelRespuestaSaldo getSaldoTarjeta(ModelBuscarTarjeta buscarTarjeta){
 
-      String apiKey = "API_KEY_PASARELAS";
+      String apiKey = System.getenv("API_KEY_PASARELAS");
       String url = "https://fuxia-pass.herokuapp.com/api/tarjeta/saldo";
 
       HttpHeaders headers = new HttpHeaders();
@@ -116,7 +116,7 @@ public class PasarelasApi {
 
    public ModelRespuestaPagoAbono abonarTarjeta(ModelPagoAbono pagoAbono){
    
-      String apiKey = "API_KEY_PASARELAS";
+      String apiKey = System.getenv("API_KEY_PASARELAS");
       String url = "https://fuxia-pass.herokuapp.com/api/tarjeta/abonar";
 
       HttpHeaders headers = new HttpHeaders();
