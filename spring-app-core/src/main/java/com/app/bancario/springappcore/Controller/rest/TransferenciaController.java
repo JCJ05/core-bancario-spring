@@ -234,7 +234,7 @@ public class TransferenciaController {
 
        }
 
-       if(respuesta.getStatus() == "error"){
+       if(respuesta.getStatus().equals("error")){
            
         response.put("mensaje", respuesta.getMensaje());
         return new ResponseEntity<Map<String , Object>>(response , HttpStatus.BAD_REQUEST);
