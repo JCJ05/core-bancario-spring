@@ -95,7 +95,7 @@ const callApiTransferencia = async (cuenta, tipo) => {
 
     localStorage.setItem('tipo_tarjeta', tipo);
   
-    const url = "http://localhost:8086/api/transferencia/consulta/cuenta";
+    const url = "/api/transferencia/consulta/cuenta";
     const cuentas = {
         "numero_cuenta": cuenta,
         "tipo": tipo
