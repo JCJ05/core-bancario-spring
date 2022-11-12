@@ -76,6 +76,15 @@
 
             </div>
 
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Cuentas Bancarias</h5>
+                  <p th:text="'Numero de cueta FuxiaBank: ' + ${cuenta.numero_cuenta}"></p>
+                  <p th:text="'Numero de cuenta Interbancaria: ' + ${cuenta.cuenta_interbancaria}"></p>
+                  <p th:text="'Numero de cuenta Internacional: ' + ${cuenta.cuenta_internacional}"></p>
+              </div>
+            </div>
+
             <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Abonar Tarjeta</button>
 
             <button type="button" class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal2" >Transferir</button>
