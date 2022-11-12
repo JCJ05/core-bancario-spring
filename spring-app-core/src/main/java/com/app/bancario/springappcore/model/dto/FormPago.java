@@ -11,6 +11,7 @@ public class FormPago {
     private Double monto;
     private Double tcCompra;
     private Double tcVenta;
+    private String descripcion;
     
     public String getNroTarjeta() {
         return nroTarjeta;
@@ -67,6 +68,12 @@ public class FormPago {
         this.tcVenta = tcVenta;
     }
 
-    
+    public String getDescripcion(){
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion){
+        this.descripcion = descripcion;
+    }
 
 }

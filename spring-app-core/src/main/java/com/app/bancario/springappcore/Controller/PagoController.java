@@ -115,11 +115,13 @@ public class PagoController {
         pago.setMonto(cuota.getMonto_total());
         pago.setTcCompra(tcActual.getCompra());
         pago.setTcVenta(tcActual.getVenta());
+        pago.setDescripcion("Pago de cuota de préstamo con tarjeta");
 
         session.setAttribute("moneda", pago.getMoneda());
         session.setAttribute("monto", pago.getMonto());
         session.setAttribute("tcCompra", pago.getTcCompra());
         session.setAttribute("tcVenta", pago.getTcVenta());
+        session.setAttribute("descripcion", pago.getDescripcion());
         session.setAttribute("tarjetaValidacion", null);
         session.setAttribute("cuentaValidacion", null);
         session.setAttribute("status", "");
@@ -255,6 +257,7 @@ public class PagoController {
         pago.setMonto((Double)session.getAttribute("monto"));
         pago.setTcCompra((Double)session.getAttribute("tcCompra"));
         pago.setTcVenta((Double)session.getAttribute("tcVenta"));
+        pago.setDescripcion("Pago de cuota con cuenta propia");
 
         String apiKey = System.getenv("API_KEY_PASARELAS");
      
@@ -280,7 +283,8 @@ public class PagoController {
                 pago.setMonto((Double)session.getAttribute("monto"));
                 pago.setTcCompra((Double)session.getAttribute("tcCompra"));
                 pago.setTcVenta((Double)session.getAttribute("tcVenta"));
-               
+                pago.setDescripcion("Pago de cuota con cuenta propia");
+
                 session.setAttribute("tarjetaValidacion", null);
                 session.setAttribute("cuentaValidacion", "Pagar con cuenta");
                 return "redirect:/pago/pagar";
@@ -294,7 +298,8 @@ public class PagoController {
                 pago.setMonto((Double)session.getAttribute("monto"));
                 pago.setTcCompra((Double)session.getAttribute("tcCompra"));
                 pago.setTcVenta((Double)session.getAttribute("tcVenta"));
-               
+                pago.setDescripcion("Pago de cuota con cuenta propia");
+
                 session.setAttribute("tarjetaValidacion", null);
                 session.setAttribute("cuentaValidacion", "Pagar con cuenta");
                 return "redirect:/pago/pagar";
@@ -390,6 +395,7 @@ public class PagoController {
         pago.setMonto((Double)session.getAttribute("monto"));
         pago.setTcCompra((Double)session.getAttribute("tcCompra"));
         pago.setTcVenta((Double)session.getAttribute("tcVenta"));
+        pago.setDescripcion((String)session.getAttribute("descripcion"));
 
         String apiKey = System.getenv("API_KEY_PASARELAS");
   
@@ -415,6 +421,8 @@ public class PagoController {
                 pago.setMonto((Double)session.getAttribute("monto"));
                 pago.setTcCompra((Double)session.getAttribute("tcCompra"));
                 pago.setTcVenta((Double)session.getAttribute("tcVenta"));
+                pago.setDescripcion((String)session.getAttribute("descripcion"));
+
                 model.addAttribute("pago", pago);
                 model.addAttribute("numCuota", numCuota);
                 model.addAttribute("cuota", cuota);
@@ -435,6 +443,8 @@ public class PagoController {
                 pago.setMonto((Double)session.getAttribute("monto"));
                 pago.setTcCompra((Double)session.getAttribute("tcCompra"));
                 pago.setTcVenta((Double)session.getAttribute("tcVenta"));
+                pago.setDescripcion((String)session.getAttribute("descripcion"));
+
                 model.addAttribute("pago", pago);
                 model.addAttribute("numCuota", numCuota);
                 model.addAttribute("cuota", cuota);
