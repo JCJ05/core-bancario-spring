@@ -11,6 +11,7 @@ public class ModelPagoAbono {
     private Double monto;
     private Double tcCompra;
     private Double tcVenta;
+    private String descripcion;
     
     public String getNroTarjeta() {
         return nroTarjeta;
@@ -66,6 +67,13 @@ public class ModelPagoAbono {
     public void setTcVenta(Double tcVenta) {
         this.tcVenta = tcVenta;
     }
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
 
     
     

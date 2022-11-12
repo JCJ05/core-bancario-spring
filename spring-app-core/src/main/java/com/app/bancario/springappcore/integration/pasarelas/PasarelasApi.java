@@ -10,10 +10,14 @@ import org.springframework.web.client.RestTemplate;
 
 import com.app.bancario.springappcore.integration.pasarelas.dto.ActivarTarjeta;
 import com.app.bancario.springappcore.integration.pasarelas.dto.ModelBuscarTarjeta;
+import com.app.bancario.springappcore.integration.pasarelas.dto.ModelMovimientos;
 import com.app.bancario.springappcore.integration.pasarelas.dto.ModelPagoAbono;
 import com.app.bancario.springappcore.integration.pasarelas.dto.ModelRespuestaPagoAbono;
 import com.app.bancario.springappcore.integration.pasarelas.dto.ModelRespuestaSaldo;
+import com.app.bancario.springappcore.integration.pasarelas.dto.ModelTransferencia;
+import com.app.bancario.springappcore.integration.pasarelas.dto.RespuestaMovimientos;
 import com.app.bancario.springappcore.integration.pasarelas.dto.RespuestaPasarela;
+import com.app.bancario.springappcore.integration.pasarelas.dto.RespuestaTransferencia;
 import com.app.bancario.springappcore.integration.pasarelas.dto.UsuarioPasarela;
 
 @Service
@@ -142,6 +146,66 @@ public class PasarelasApi {
      
      return pasarela;
 
+
+   }
+
+   public RespuestaTransferencia transferir(ModelTransferencia transferencia){
+   
+      String apiKey = System.getenv("API_KEY_PASARELAS");
+      String url = "https://fuxia-pass.herokuapp.com/api/tarjeta/transferir";
+
+      HttpHeaders headers = new HttpHeaders();
+      headers.set("apiKey", apiKey);
+
+      HttpEntity<ModelTransferencia> request = new HttpEntity<>(transferencia ,headers);
+      ResponseEntity<RespuestaTransferencia> responseEntity;
+
+      RespuestaTransferencia pasarela = new RespuestaTransferencia();
+
+      try {
+
+        responseEntity = restTemplate.exchange(url, HttpMethod.POST, request, RespuestaTransferencia.class);
+        pasarela = responseEntity.getBody();
+
+        System.out.println(pasarela);
+        
+      } catch (Exception e) {
+
+        pasarela = null;
+
+      }
+
+      return pasarela;
+
+   }
+
+   public RespuestaMovimientos movimientosTarjeta(ModelMovimientos modelMovimientos){
+  
+    String apiKey = System.getenv("API_KEY_PASARELAS");
+    String url = "https://fuxia-pass.herokuapp.com/api/tarjeta/movimientos";
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("apiKey", apiKey);
+
+    HttpEntity<ModelMovimientos> request = new HttpEntity<>(modelMovimientos ,headers);
+    ResponseEntity<RespuestaMovimientos> responseEntity;
+
+     RespuestaMovimientos pasarela = new RespuestaMovimientos();
+
+    try {
+
+      responseEntity = restTemplate.exchange(url, HttpMethod.POST, request, RespuestaMovimientos.class);
+      pasarela = responseEntity.getBody();
+      pasarela = pasarela != null? pasarela.getStatus().equals("success")? pasarela : null : null;
+      
+    } catch (Exception e) {
+
+      pasarela = null;
+
+    }
+    
+   
+   return pasarela;
 
    }
     

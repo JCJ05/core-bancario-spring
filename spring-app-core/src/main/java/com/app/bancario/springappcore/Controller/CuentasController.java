@@ -1,5 +1,9 @@
 package com.app.bancario.springappcore.Controller;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -11,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.app.bancario.springappcore.integration.pasarelas.PasarelasApi;
 import com.app.bancario.springappcore.integration.pasarelas.dto.ActivarTarjeta;
 import com.app.bancario.springappcore.integration.pasarelas.dto.ModelBuscarTarjeta;
+import com.app.bancario.springappcore.integration.pasarelas.dto.ModelMovimientos;
 import com.app.bancario.springappcore.integration.pasarelas.dto.ModelPagoAbono;
 import com.app.bancario.springappcore.integration.pasarelas.dto.ModelRespuestaSaldo;
+import com.app.bancario.springappcore.integration.pasarelas.dto.RespuestaMovimientos;
 import com.app.bancario.springappcore.model.CuentaAhorro;
 import com.app.bancario.springappcore.model.TarjetaAhorro;
 import com.app.bancario.springappcore.model.TipoCambio;
@@ -54,16 +60,39 @@ public class CuentasController {
            TarjetaAhorro tarjetaAhorro = cuentaAhorro.getTarjeta();
 
            ModelBuscarTarjeta buscarTarjeta = new ModelBuscarTarjeta();
+
            buscarTarjeta.setNroTarjeta(tarjetaAhorro.getNroTarjeta());
            buscarTarjeta.setDueMonth(tarjetaAhorro.getDueMonth());
            buscarTarjeta.setDueYear(tarjetaAhorro.getDueYear());
            buscarTarjeta.setCvv(tarjetaAhorro.getCvv());
            buscarTarjeta.setNombre(tarjetaAhorro.getNombre_titular());
+
+           Calendar calendar = new GregorianCalendar();
+
+           int year = calendar.get(Calendar.YEAR);
+           int mes = calendar.get(Calendar.MONTH) + 1;
+           int dia = calendar.get(Calendar.DAY_OF_MONTH);
+           int cantDias = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+           String fecha_Inicio = year + "-" + mes + "-" + dia;
+           String fecha_Fin = year + "-" + mes + "-" + cantDias;
+
+           ModelMovimientos movimientos = new ModelMovimientos();
+
+           movimientos.setNroTarjeta(tarjetaAhorro.getNroTarjeta());
+           movimientos.setDueMonth(tarjetaAhorro.getDueMonth());
+           movimientos.setDueYear(tarjetaAhorro.getDueYear());
+           movimientos.setCvv(tarjetaAhorro.getCvv());
+           movimientos.setNombre(tarjetaAhorro.getNombre_titular());
+           movimientos.setFechaInicio(fecha_Inicio);
+           movimientos.setFechaFin(fecha_Fin);
    
            ModelRespuestaSaldo respuesta = pasarelasApi.getSaldoTarjeta(buscarTarjeta);
+           RespuestaMovimientos movimientosAll = pasarelasApi.movimientosTarjeta(movimientos);
 
            model.addAttribute("saldo", respuesta.getSaldo());
            model.addAttribute("status", respuesta.isActive());
+           model.addAttribute("movimientosClase", movimientosAll);
            model.addAttribute("cuenta", cuentaAhorro);
            model.addAttribute("tarjeta", tarjetaAhorro);
            return "cuenta/tarjeta";
@@ -158,6 +187,7 @@ public class CuentasController {
          pagoAbono.setMonto(monto);
          pagoAbono.setTcCompra(tcActual.getCompra());
          pagoAbono.setTcVenta(tcActual.getVenta());
+         pagoAbono.setDescripcion("Abono a tarjeta de credito");
 
          pasarelasApi.abonarTarjeta(pagoAbono);
 

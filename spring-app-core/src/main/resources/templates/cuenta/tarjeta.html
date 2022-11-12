@@ -76,18 +76,55 @@
 
             </div>
 
-            <div style="width: 100%; max-width: 550px;" class="card mt-3">
+            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Abonar Tarjeta</button>
+
+            <button type="button" class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal2" >Transferir</button>
+
+
+            <div th:if="${movimientosClase == null}" style="width: 100%; max-width: 550px;" class="card mt-3">
                 <div class="card-header">
                   Movimientos
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">Movimientos de la Tarjeta</h5>
-                  <p class="card-text">Proximamente</p>
+                  <p class="card-text">No existe Movimientos aun en la tarjeta</p>
+                 
+                </div>
+              </div>
+
+              <div th:if="${movimientosClase != null}" style="width: 100%; max-width: 550px;" class="card mt-3">
+                <div class="card-header">
+                  Movimientos
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Movimientos de la Tarjeta</h5>
+                  <p class="card-text"></p>
+
+                  <table class="table table-striped">
+                      
+                     <tr>
+                       
+                        <th>Fecha</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+
+                     </tr>
+
+                     <tbody>
+                          <tr th:each="movimiento : ${movimientosClase.movimientos}">
+                              <td th:text="${#dates.format(movimiento.fechaHora, 'dd-MMM-yyyy')}"></td>
+                              <td th:text="${movimiento.descripcion}"></td>
+                              <td th:text="${movimiento.monto}" th:classappend="${movimiento.monto > 0} ? '' : text-danger"></td>
+                             
+                          </tr>
+                     </tbody>
+
+                  </table>
                  
                 </div>
               </div>
              
-              <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Abonar Tarjeta</button>
+             
 
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -113,11 +150,103 @@
                 </div>
               </div>
 
+            
+              
+              <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Buscar Numero de Cuenta</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form id="formulario_cuenta">
+                     
+                        <div class="mb-3">
+                        
+                          <label for="tipo">Elige el tipo de transferencia</label>
+                          <select name="tipo_transferencia" id="tipo" class="form-control">
+                             
+                             <option value="" selected>Selecciona...</option>
+                             <option value="Bancaria">Trasferencia FuxiaBank</option>
+                             <option value="Interbancaria">Trasferecia Interbacaria</option>
+                             <option value="Internacional">Transferecia Internacional</option>
+
+                          </select>
+
+                          <p id="error_tipo"></p>
+
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="numero_cuenta" class="col-form-label">Numero de cuenta:</label>
+                          <input type="text" class="form-control" id="numero_cuenta" autocomplete="off">
+                          <p id="error_numero"></p>
+                        </div>
+                        
+                        <button id="btn_disabled" type="submit" class="btn btn-primary">Buscar Numero</button>
+
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+             
+
             </div>
         </div>
+
+        <div class="animate__bounceInLeft">
+
+        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div id="contenido" class="modal-content">
+              
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+        
+        <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Autorizacion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="formulario_codigo">
+               
+
+                  <div class="mb-3">
+                    <label for="numero_cuenta" class="col-form-label">Ingrese el codigo enviado a su correo:</label>
+                    <input type="text" class="form-control" id="numero_codigo" autocomplete="off">
+                    <p id="error_codigo"></p>
+                  </div>
+                  
+                  <button id="btn_disabled" type="submit" class="btn btn-primary">Autorizar Transferencia</button>
+
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+        
     
         <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
+        <script type="module" th:src="@{/js/transferencia.js}"></script>
        
     </body>
 </html>
