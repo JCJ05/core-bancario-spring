@@ -2,12 +2,12 @@ package com.app.bancario.springappcore.Controller;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,10 +72,9 @@ public class CuentasController {
            int year = calendar.get(Calendar.YEAR);
            int mes = calendar.get(Calendar.MONTH) + 1;
            int dia = calendar.get(Calendar.DAY_OF_MONTH);
-           int cantDias = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-           String fecha_Inicio = year + "-" + mes + "-" + dia;
-           String fecha_Fin = year + "-" + mes + "-" + cantDias;
+           String fecha_Inicio = year + "-" + mes + "-" + 01;
+           String fecha_Fin = year + "-" + mes + "-" + dia;
 
            ModelMovimientos movimientos = new ModelMovimientos();
 
@@ -193,6 +192,25 @@ public class CuentasController {
 
          return "redirect:/cuenta/tarjeta";
 
+      }
+
+      @GetMapping(path = "/grafico/movimientos")
+      public String graficoMovimientos( Authentication authentication ,Model model){
+  
+          Usuario usuario = usuarioRepository.findByUsername(authentication.getName());
+  
+          CuentaAhorro cuentaAhorro = ahorroRepository.findByIdUsuario(usuario.getId()).orElse(null);
+  
+          if(cuentaAhorro == null){
+             
+             model.addAttribute("cuenta", cuentaAhorro);
+             return "cuenta/tarjeta";
+  
+          }
+  
+          model.addAttribute("titulo", "Grafico Anual de consumos");
+        
+          return "grafico";
       }
 
 }

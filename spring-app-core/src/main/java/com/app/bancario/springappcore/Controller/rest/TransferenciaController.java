@@ -1,5 +1,7 @@
 package com.app.bancario.springappcore.Controller.rest;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.bancario.springappcore.integration.pasarelas.PasarelasApi;
+import com.app.bancario.springappcore.integration.pasarelas.dto.ModelMovimientos;
 import com.app.bancario.springappcore.integration.pasarelas.dto.ModelTransferencia;
+import com.app.bancario.springappcore.integration.pasarelas.dto.RespuestaMovimientos;
 import com.app.bancario.springappcore.integration.pasarelas.dto.RespuestaTransferencia;
 import com.app.bancario.springappcore.model.Codigo;
 import com.app.bancario.springappcore.model.CuentaAhorro;
+import com.app.bancario.springappcore.model.TarjetaAhorro;
 import com.app.bancario.springappcore.model.TipoCambio;
 import com.app.bancario.springappcore.model.Usuario;
 import com.app.bancario.springappcore.repository.CodigoRepository;
@@ -243,6 +248,45 @@ public class TransferenciaController {
        response.put("mensaje", respuesta.getMensaje());
        return new ResponseEntity<Map<String , Object>>(response , HttpStatus.OK);
         
+    }
+
+    @GetMapping(path = "/movimientos/tarjeta")
+    public ResponseEntity<?> movimientosTarjeta(Authentication authentication){
+        
+        Map<String , Object> response = new HashMap<>();
+        Usuario usuario = usuarioRepository.findByUsername(authentication.getName());
+        CuentaAhorro ahorro = ahorroRepository.findByIdUsuario(usuario.getId()).orElse(null);
+
+        if(ahorro == null ){
+                
+                response.put("mensaje", "No se encontro la tarjeta o no cuenta con una");
+                return new ResponseEntity<Map<String , Object>>(response , HttpStatus.BAD_REQUEST);
+        }
+
+        TarjetaAhorro tarjetaAhorro = ahorro.getTarjeta();
+
+        Calendar calendar = new GregorianCalendar();
+        int year = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH) + 1;
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+    
+        String fecha_Inicio = year + "-" + 01 + "-" + 01;
+        String fecha_Fin = year + "-" + mes + "-" + dia;
+
+        ModelMovimientos movimientos = new ModelMovimientos();
+
+        movimientos.setNroTarjeta(tarjetaAhorro.getNroTarjeta());
+        movimientos.setDueMonth(tarjetaAhorro.getDueMonth());
+        movimientos.setDueYear(tarjetaAhorro.getDueYear());
+        movimientos.setCvv(tarjetaAhorro.getCvv());
+        movimientos.setNombre(tarjetaAhorro.getNombre_titular());
+        movimientos.setFechaInicio(fecha_Inicio);
+        movimientos.setFechaFin(fecha_Fin);
+
+        RespuestaMovimientos movimientosAll = pasarelasApi.movimientosTarjeta(movimientos);
+        
+        response.put("movimientosAll", movimientosAll);
+        return new ResponseEntity<Map<String , Object>>(response , HttpStatus.OK);
     }
 
 }
